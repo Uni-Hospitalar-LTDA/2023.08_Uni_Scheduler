@@ -265,6 +265,12 @@
     <Compile Include="App\frmSchedule_Information.Designer.cs">
       <DependentUpon>frmSchedule_Information.cs</DependentUpon>
     </Compile>
+    <Compile Include="App\frmTeste.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="App\frmTeste.Designer.cs">
+      <DependentUpon>frmTeste.cs</DependentUpon>
+    </Compile>
     <Compile Include="App\Generic_Screen\frmGenericChoice.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -286,10 +292,12 @@
     <Compile Include="Configuration\CustomForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Configuration\DateExtractor.cs" />
     <Compile Include="Configuration\Exportation.cs" />
     <Compile Include="Configuration\IEnumerableExtensions.cs" />
     <Compile Include="Configuration\Querys.cs" />
     <Compile Include="Configuration\SchedulerCustomProperties.cs" />
+    <Compile Include="Configuration\StringExtensions.cs" />
     <Compile Include="Domain\Entities\Archive.cs" />
     <Compile Include="Domain\Entities\Email\Email.cs" />
     <Compile Include="Domain\Entities\Email\EmailAttributes.cs" />
@@ -339,6 +347,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="App\frmSchedule_Information.resx">
       <DependentUpon>frmSchedule_Information.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="App\frmTeste.resx">
+      <DependentUpon>frmTeste.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="App\Generic_Screen\frmGenericChoice.resx">
       <DependentUpon>frmGenericChoice.cs</DependentUpon>

@@ -17,7 +17,7 @@ namespace _2023._08_Uni_Scheduler
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmMain());
+            Application.Run(new frmTeste());
         }
     }
 }
