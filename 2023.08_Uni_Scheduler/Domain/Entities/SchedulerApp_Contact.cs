@@ -68,6 +68,12 @@ namespace _2023._08_Uni_Scheduler.Domain.Entities
             return await getAllToList(query);
         }
 
+        public async static Task<List<SchedulerApp_Contact>> getAllToListAllowedContactsAsync()
+        {
+            string query = $@"SELECT Contact.* FROM [UHCDB].dbo.[SchedulerApp_Contact] Contact                              
+                              WHERE canrequest = 1";
+            return await getAllToList(query);
+        }
         public async static Task<bool> canRequest(string mail)
         {
             string query = $"SELECT TOP 1 * FROM [UHCDB].dbo.[SchedulerApp_Contact] WHERE MAIL LIKE '{mail}'";

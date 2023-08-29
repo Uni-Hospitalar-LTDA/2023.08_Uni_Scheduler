@@ -8,10 +8,13 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Data;
 using System.IO;
-using System.Windows.Forms;
-using ClosedXML.Excel;
 using _2023._08_Uni_Scheduler.Configuration;
-using DocumentFormat.OpenXml.Spreadsheet;
+using MailKit;
+using MailKit.Net.Imap;
+using MimeKit;
+using System.Windows.Forms;
+using MailKit.Search;
+using System.Collections.Concurrent;
 
 namespace _2023._08_Uni_Scheduler.Domain.Entities.Email
 {
@@ -22,57 +25,75 @@ namespace _2023._08_Uni_Scheduler.Domain.Entities.Email
         public static void getMailCredentials()
         {
             //Microsoft 1
+            //_attributes.Add(new EmailAttributes()
+            //{
+            //    service = "Gmail"
+            //    ,
+            //    popPort = 995
+            //    ,
+            //    popServer = "pop.gmail.com"
+            //    ,
+            //    smtpPort = 587
+            //    ,
+            //    smtpServer = "smtp.gmail.com"
+            //    ,
+            //    imapPort = 993
+            //    ,
+            //    imapServer = "imap.gmail.com"
+            //    ,
+            //    useSsl = true
+            //    ,
+            //    username = "inteligence@unihospitalar.com.br"
+            //    ,
+            //    password = "!@#asd253"
+            //});
+            //_attributes.Add(new EmailAttributes()
+            //{
+            //    service = "Hotmail"
+            //    ,
+            //    popPort = 995
+            //    ,
+            //    popServer = "outlook.office365.com"
+            //    ,
+            //    smtpPort = 587
+            //    ,
+            //    smtpServer = "smtp.office365.com"
+            //    ,
+            //    imapPort = 993
+            //    ,
+            //    imapServer = "outlook.office365.com"
+            //    ,
+            //    useSsl = true
+            //    ,
+            //    username = "inteligence@unihospitalar.com.br"
+            //    //,username = "outlook_862B87F9D425CB48@outlook.com"
+            //    ,
+            //    password = "!@#asd253"
+            //});
             _attributes.Add(new EmailAttributes()
             {
-                service = "Gmail"
+                service = "Hotmail"
                 ,
                 popPort = 995
                 ,
-                popServer = "pop.gmail.com"
+                popServer = "outlook.office365.com"
                 ,
                 smtpPort = 587
                 ,
-                smtpServer = "smtp.gmail.com"
+                smtpServer = "smtp.office365.com"
                 ,
                 imapPort = 993
                 ,
-                imapServer = "---"
+                imapServer = "outlook.office365.com"
                 ,
                 useSsl = true
                 ,
-                username = "inteligence@unihospitalar.com.br"
+                username = "testeunihospitalar2@hotmail.com"
                 ,
-                password = "!@#asd253"
+                password = "rfds3142365."
             });
-            //_attributes.Add(new EmailAttributes()
-            //{
-            //    service = "Hotmail"
-            //    ,popPort = 995
-            //    ,popServer = "outlook.office365.com"
-            //    ,smtpPort = 587
-            //    ,smtpServer = "smtp.office365.com"
-            //    ,imapPort = 993
-            //    ,imapServer = "outlook.office365.com"
-            //    ,useSsl = true
-            //    ,username = "inteligence@unihospitalar.com.br"
-            //    //,username = "outlook_862B87F9D425CB48@outlook.com"
-            //    ,password = "!@#asd253"
-            //});
-            //_attributes.Add(new EmailAttributes()
-            //{
-            //    service = "Hotmail"
-            //    ,popPort = 995
-            //    ,popServer = "outlook.office365.com"
-            //    ,smtpPort = 587
-            //    ,smtpServer = "smtp.office365.com"
-            //    ,imapPort = 993
-            //    ,imapServer = "outlook.office365.com"
-            //    ,useSsl = true
-            //    ,username = "testeunihospitalar2@hotmail.com"
-            //    ,password = "rfds3142365."
-            //});
-        }      
-        public static async Task<string> SendEmailWithExcelAttachment(List<string> toAddresses,string ccAddress,string subject,string bodyContent,List<string> itens, string bottom_message,string logo,
+        }
+        public static async Task<string> SendEmailWithExcelAttachment(List<string> toAddresses, string ccAddress, string subject, string bodyContent, List<string> itens, string bottom_message, string logo,
         List<Archive> additionalAttachments, bool withSheet = false)
         {
             /** Get Logo link**/
@@ -92,7 +113,7 @@ namespace _2023._08_Uni_Scheduler.Domain.Entities.Email
 
             // Substitui quebras de linha por <br/>
             processedBodyContent = processedBodyContent.Replace("\n", "<br/>");
-            processedBottomContent = processedBottomContent.Replace("\n", "<br/>");            
+            processedBottomContent = processedBottomContent.Replace("\n", "<br/>");
             string body = $@"
                             <html>
                             <body style='font-family: Arial, sans-serif; background-color: #f5f5f5;'>
@@ -101,7 +122,7 @@ namespace _2023._08_Uni_Scheduler.Domain.Entities.Email
                                     <div style='color: #333333; text-align: justify;'>
                                         <h1 style='color: #bb001d; font-size: 24px; margin-bottom: 20px;'>{subject}</h1>
                                         <p style='font-size: 14px; color: black; margin-bottom: 20px;'>{processedBodyContent}</p>
-                                        {GenerateHtmlWithDataTableAndList(itens)}
+                                        {GenerateHtmlWithDataTableAndList("Os anexos deste e-mail são: ", itens)}
                                         <p style='font-size: 14px; color: black; margin-bottom: 20px;'>{"A tecnologia é uma ferramenta que pode ser usada para o bem ou para o mal. Cabe a nós usá-la com sabedoria."}</p>
                                         <div style='text-align: center;'>
                                             <p><strong>{processedBottomContent}</strong></p>
@@ -226,14 +247,14 @@ namespace _2023._08_Uni_Scheduler.Domain.Entities.Email
 
             return "Falha de SMTP: Todas as tentativas com diferentes credenciais falharam.";
         }
-        public static string GenerateHtmlWithDataTableAndList(List<string> itemList)
+        public static string GenerateHtmlWithDataTableAndList(string title, List<string> itemList)
         {
             StringBuilder htmlBuilder = new StringBuilder();
 
             htmlBuilder.Append("<div style='margin-top: 20px; margin-bottom: 20px;'>");
 
             // Título da lista
-            htmlBuilder.Append("<p style='font-size: 14px; color: black; font-weight: bold;'>Os anexos deste e-mail são:</p>");
+            htmlBuilder.Append($"<p style='font-size: 14px; color: black; font-weight: bold;'>{title}</p>");
 
             htmlBuilder.Append("<ul style='list-style-type: disc; margin-left: 20px;'>");
 
@@ -292,7 +313,71 @@ namespace _2023._08_Uni_Scheduler.Domain.Entities.Email
                 html += "</table>";
             }
             return html;
-        }        
+        }
+        public static List<EmailMessage> ListEmailTitlesAndSenders(List<string> mailList)
+        {
+            ConcurrentBag<EmailMessage> emailMessages = new ConcurrentBag<EmailMessage>();
 
+            foreach (var credentials in _attributes)
+            {
+                try
+                {
+                    using (var client = new ImapClient())
+                    {
+                        client.Connect(credentials.imapServer, credentials.imapPort, credentials.useSsl);
+                        client.Authenticate(credentials.username, credentials.password);
+
+                        var inbox = client.Inbox;
+                        inbox.Open(MailKit.FolderAccess.ReadWrite);
+
+                        // Busque apenas as mensagens não lidas
+                        var unreadMessages = inbox.Search(SearchQuery.NotSeen);
+
+                        Console.WriteLine($"Total unread messages in {credentials.username}: {unreadMessages.Count}");
+
+                        foreach (var uid in unreadMessages)
+                        {
+                            var message = inbox.GetMessage(uid);
+                            var senderEmail = message.From.Mailboxes.FirstOrDefault()?.Address;
+
+                            if (senderEmail != null && mailList.Contains(senderEmail))
+                            {
+                                EmailMessage emailMessage = new EmailMessage
+                                {
+                                    id = message.MessageId,
+                                    subject = message.Subject,
+                                    body = message.TextBody,
+                                    from = senderEmail
+                                };
+
+                                emailMessages.Add(emailMessage);
+
+                                // Mark the message as read
+                                inbox.AddFlags(uid, MessageFlags.Seen, true);
+                            }
+                        }
+
+                        // Expunge to commit changes
+                        inbox.Expunge();
+
+                        client.Disconnect(true);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Failed to fetch emails from {credentials.username}: " + ex.Message);
+                }
+            }
+
+            return emailMessages.ToList();
+        }
+    }
+
+    public class EmailMessage 
+    {
+        public string id { get; set; }
+        public string subject { get; set; }
+        public string body { get; set; }
+        public string from { get; set; }
     }
 }

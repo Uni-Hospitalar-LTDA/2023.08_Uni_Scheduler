@@ -8,29 +8,16 @@ using System.Threading.Tasks;
 
 namespace _2023._08_Uni_Scheduler.Configuration
 {
+    using _2023._08_Uni_Scheduler.Domain.Entities;
+    using DocumentFormat.OpenXml.Drawing;
+    using DocumentFormat.OpenXml.Drawing.Diagrams;
     using System;
     using System.Collections.Generic;
     using System.Text.RegularExpressions;
     using System.Windows.Forms;
 
     public class DateExtractor
-    {
-
-        public static string GetSqlCondition(string input)
-        {
-            //var clientCondition = GetCustomerCondition(input);
-            //var dateCondition = getDateConditions(input);
-            //var manufacturerCondition = GetManufacturerCondition(input);
-            //var productCondition = GetProductCondition(input);
-            var reportType = GetReportTypeCondition(input);            
-            //if (string.IsNullOrEmpty(clientCondition)
-            //    || string.IsNullOrEmpty(dateCondition)
-            //    || string.IsNullOrEmpty(manufacturerCondition)
-            //    || string.IsNullOrEmpty(productCondition))
-            //    return string.Empty;
-
-            return $@"{reportType}";
-        }
+    {        
         private static string GetCustomerCondition(string input)
         {
             var pattern = @"clientes?[\s:]*(([\w\s\.-]+,?)+)";
@@ -73,6 +60,49 @@ namespace _2023._08_Uni_Scheduler.Configuration
                 conditions.Add($"Cliente.Cgc_Cpf IN ({string.Join(",", cnpjs)})");
 
             return string.Join(" OR ", conditions);
+        }
+        private static string GetCustomerInterpretation(string input)
+        {
+            var pattern = @"clientes?[\s:]*(([\w\s\.-]+,?)+)";
+            var match = Regex.Match(input.ToLower(), pattern);
+
+            if (!match.Success)
+                return "Todos os Clientes.";
+
+            var items = match.Groups[1].Value.Split(',').Select(i => i.Trim()).ToArray();
+
+            var codigos = new List<string>();
+            var descricoes = new List<string>();
+            var cnpjs = new List<string>();
+
+            foreach (var item in items)
+            {
+                if (Regex.IsMatch(item, @"^\d+$")) // Código
+                {
+                    codigos.Add(item);
+                }
+                else if (Regex.IsMatch(item, @"^\d{14}$")) // CNPJ
+                {
+                    cnpjs.Add(item);
+                }
+                else // Descrição
+                {
+                    descricoes.Add(item);
+                }
+            }
+
+            var interpretations = new List<string>();
+
+            if (codigos.Any())
+                interpretations.Add($"Cliente -> Códigos: {string.Join(",", codigos)}");
+
+            if (cnpjs.Any())
+                interpretations.Add($"Cliente -> CNPJ: {string.Join(", ", cnpjs)}");
+
+            if (descricoes.Any())
+                interpretations.Add($"Cliente -> Descrição: {string.Join(", ", descricoes)}");
+
+            return string.Join(" | ", interpretations);
         }
 
         private static string GetManufacturerCondition(string input)
@@ -120,6 +150,50 @@ namespace _2023._08_Uni_Scheduler.Configuration
 
             return string.Join(" OR ", conditions);
         }
+        private static string GetManufacturerInterpretation(string input)
+        {
+            var pattern = @"(fabricantes?|fornecedores?|fornecedor?)[\s:]*(([\w\s\.-]+,?)+)";
+            var match = Regex.Match(input.ToLower(), pattern);
+
+            if (!match.Success)
+                return "Todos os Fabricantes/Fornecedores.";
+
+            var items = match.Groups[2].Value.Split(',').Select(i => i.Trim()).ToArray();
+
+            var codigos = new List<string>();
+            var descricoes = new List<string>();
+            var cnpjs = new List<string>();
+
+            foreach (var item in items)
+            {
+                if (Regex.IsMatch(item, @"^\d+$")) // Código
+                {
+                    codigos.Add(item);
+                }
+                else if (Regex.IsMatch(item, @"^\d{14}$")) // CNPJ
+                {
+                    cnpjs.Add(item);
+                }
+                else // Descrição
+                {
+                    descricoes.Add(item);
+                }
+            }
+
+            var interpretations = new List<string>();
+
+            if (codigos.Any())
+                interpretations.Add($"Fabricante -> Códigos: {string.Join(",", codigos)}");
+
+            if (cnpjs.Any())
+                interpretations.Add($"Fabricante -> CNPJ: {string.Join(", ", cnpjs)}");
+
+            if (descricoes.Any())
+                interpretations.Add($"Fabricante -> Descrição: {string.Join(", ", descricoes)}");
+
+            return string.Join(" | ", interpretations);
+        }
+
         private static string GetProductCondition(string input)
         {
             // Ajustando o pattern para considerar "Produtos" e "Produtop"
@@ -169,6 +243,53 @@ namespace _2023._08_Uni_Scheduler.Configuration
 
             return string.Join(" OR ", conditions);
         }
+        private static string GetProductInterpretation(string input)
+        {
+            var pattern = @"(produtos?)[\s:]*(([\w\s\.-]+,?)+)";
+            var match = Regex.Match(input.ToLower(), pattern);
+
+            if (!match.Success)
+                return "Todos os Produtos.";
+
+            var items = match.Groups[2].Value.Split(',').Select(i => i.Trim()).ToArray();
+
+            var codigos = new List<string>();
+            var descricoes = new List<string>();
+            var eans = new List<string>();
+
+            foreach (var item in items)
+            {
+                if (Regex.IsMatch(item, @"^\d+$")) // Código
+                {
+                    codigos.Add(item);
+                }
+                else if (Regex.IsMatch(item, @"^\d{14}$")
+                     || Regex.IsMatch(item, @"^\d{13}$")
+                     || Regex.IsMatch(item, @"^\d{12}$")
+                     || Regex.IsMatch(item, @"^\d{8}$")) // EAN
+                {
+                    eans.Add(item);
+                }
+                else // Descrição
+                {
+                    descricoes.Add(item);
+                }
+            }
+
+            var interpretations = new List<string>();
+
+            if (codigos.Any())
+                interpretations.Add($"Produto -> Códigos: {string.Join(",", codigos)}");
+
+            if (eans.Any())
+                interpretations.Add($"Produto -> EANs: {string.Join(", ", eans)}");
+
+            if (descricoes.Any())
+                interpretations.Add($"Produto -> Descrição: {string.Join(", ", descricoes)}");
+
+            return string.Join(" | ", interpretations);
+        }
+
         private static string GetStateCondition(string input)
         {
             // Ajustando o pattern para considerar "Estado", "Estados", "UF" e "UFS"
@@ -206,6 +327,95 @@ namespace _2023._08_Uni_Scheduler.Configuration
 
             return string.Join(" OR ", conditions);
         }
+        private static string GetStateInterpretation(string input)
+        {
+            var pattern = @"(estados?|ufs?)[\s:]*(([\w\s\.-]+,?)+)";
+            var match = Regex.Match(input.ToLower(), pattern);
+
+            if (!match.Success)
+                return "Todos os Estados";
+
+            var items = match.Groups[2].Value.Split(',').Select(i => i.Trim()).ToArray();
+
+            var ufs = new List<string>();
+            var descricoes = new List<string>();
+
+            foreach (var item in items)
+            {
+                if (item.Length == 2) // UF
+                {
+                    ufs.Add(item.ToUpper());
+                }
+                else if (item.Length > 2) // Descrição
+                {
+                    descricoes.Add(item);
+                }
+            }
+
+            var interpretations = new List<string>();
+
+            if (ufs.Any())
+                interpretations.Add($"Estado -> UFs: {string.Join(", ", ufs)}");
+
+            if (descricoes.Any())
+                interpretations.Add($"Estado -> Descrição: {string.Join(", ", descricoes)}");
+
+            return string.Join(" | ", interpretations);
+        }
+
+        private async static Task<SchedulerApp_Connection> GetConnectionCondition(string input)
+        {
+            // Convertendo toda a entrada para minúsculas para facilitar o casamento de padrões
+            input = input.ToLower();            
+           
+            // Verifica se as conexões de Pernambuco são mencionadas na entrada
+            if (Regex.IsMatch(input, @"(uni hospitalar ltda|uni hospitalar|uni pe|uni pernambuco|uni recife|pernambuco|pe)\b"))
+            {
+                return await SchedulerApp_Connection.getToClassByDescriptionAsync("PE");
+            }
+
+            // Verifica se as conexões de Ceará são mencionadas na entrada
+            if (Regex.IsMatch(input, @"(uni hospitalar ceara|uni ceara|uni ce|ceará|ceara|ce)\b"))
+            {
+                return await SchedulerApp_Connection.getToClassByDescriptionAsync("CE");
+            }
+
+            // Verifica se as conexões de São Paulo são mencionadas na entrada
+            if (Regex.IsMatch(input, @"(sp hospitalar|são paulo|sp hosp)\b"))
+            {
+                return await SchedulerApp_Connection.getToClassByDescriptionAsync("SP");
+            }
+                                       
+            return await SchedulerApp_Connection.getToClassByDescriptionAsync("PE");
+        }
+        private static string GetConnectionInterpretation(string input)
+        {
+            // Convertendo toda a entrada para minúsculas para facilitar o casamento de padrões
+            input = input.ToLower();
+
+            var interpretations = new List<string>();
+
+            // Verifica se as conexões de Pernambuco são mencionadas na entrada
+            if (Regex.IsMatch(input, @"(uni hospitalar ltda|uni hospitalar|uni pe|uni pernambuco|uni recife|pernambuco|pe)\b"))
+            {
+                interpretations.Add("Conexão -> Pernambuco");
+            }
+
+            // Verifica se as conexões de Ceará são mencionadas na entrada
+            if (Regex.IsMatch(input, @"(uni hospitalar ceara|uni ceara|uni ce|ceará|ceara|ce)\b"))
+            {
+                interpretations.Add("Conexão -> Ceará");
+            }
+
+            // Verifica se as conexões de São Paulo são mencionadas na entrada
+            if (Regex.IsMatch(input, @"(sp hospitalar|são paulo|sp hosp)\b"))
+            {
+                interpretations.Add("Conexão -> São Paulo");
+            }
+            if (interpretations.Count == 0)
+                interpretations.Add("PE");
+            return string.Join(" | ", interpretations);
+        }
 
         private static string GetClientTypeCondition(string input)
         {
@@ -241,7 +451,29 @@ namespace _2023._08_Uni_Scheduler.Configuration
 
             return string.Join(" OR ", conditions);
         }
-        public static string GetReportTypeCondition(string input)
+        private static string GetClientTypeInterpretation(string input)
+        {
+            // Convertendo toda a entrada para minúsculas para facilitar o casamento de padrões
+            input = input.ToLower();
+
+            var interpretations = new List<string>();
+
+            // Verifica se os tipos de cliente privados são mencionados na entrada
+            if (Regex.IsMatch(input, @"(privado|priv)\b"))
+            {
+                interpretations.Add("Cliente -> Tipo: Privado");
+            }
+
+            // Verifica se os tipos de cliente públicos são mencionados na entrada
+            if (Regex.IsMatch(input, @"(público|pub)\b"))
+            {
+                interpretations.Add("Cliente -> Tipo: Público");
+            }
+
+            return string.Join(" | ", interpretations);
+        }
+
+        public static async  Task<Tuple<Archive,SchedulerApp_Connection>> GetReportTypeCondition(string input)
         {
 
             var clientCondition = GetCustomerCondition(input);
@@ -250,15 +482,36 @@ namespace _2023._08_Uni_Scheduler.Configuration
             var productCondition = GetProductCondition(input);
             var stateCondition = GetStateCondition(input);
             var typeClientCondition = GetClientTypeCondition(input);
+            var connection = await GetConnectionCondition(input);
 
             // Mapeamento das palavras-chave para as condições e suas respectivas consultas SQL
             var reportTypeMap = new Dictionary<string, Tuple<string[], string>>
     {
-        {"Custo do Estoque", new Tuple<string[], string>(new[] {"Custo do Estoque", "Estoque Custo", "Custo Estoque", "EST_Custo"}                        
-        , $@"teste
+        {"Custo do Estoque "+DateTime.Now.ToString("dd-MM-yy"), new Tuple<string[], string>(new[]
+
+        {"Custo do Estoque", "Custo d Estoque", "Custo do Etoque", "Cuto do Estoque", "Custo doEstoque", "Costo do Estoque", "Custo do Estoqu", "Custo de Estoque", "Custo do stock", "Custo Stock", "Custo do stok", "Custo Stocke", "Custo Stoq", "Custo d Stock", "Estoque Custo", "Estoqu Custo", "Etoque Custo", "Estoque Cuto", "Estoque Costo", "Estoque Cust", "Stock Custo", "Estok Custo", "Stocke Custo", "Stoq Custo", "Custo Estoque", "Custo Etoque", "Cuto Estoque", "Costo Estoque", "Custo Estoqu", "Custo Estok", "Custo Stocke", "Custo Stoq", "EST_Custo", "ESTCusto", "ET_Custo", "EST_Cust", "EST_Custp", "ES_Custo", "ESTCuto", "ESTCosto"}
+        , $@"SELECT produto.codigo [Cód. Produto] ,
+       descricao [Produto] ,
+       qtd_disponivel+qtd_solicitado [Qtd. Disponível] ,
+       Round (produto.prc_customedio,2) [Custo Médio],
+       cod_locfis [Local] ,
+       produto.prc_ultent [Prc. Última Compra],
+       produto.dat_ultcompra [Dat. Última Compra] ,
+       fabricante.fantasia [Fabricante]
+FROM	dmd.dbo.produ produto 
+join	dmd.dbo.fabri fabricante
+ON produto.cod_fabricante = fabricante.codigo
+WHERE  1=1
+AND ({(string.IsNullOrEmpty(productCondition) ? "1=1" : productCondition)})
+AND ({(string.IsNullOrEmpty(manufacturerCondition) ? "1=1" : manufacturerCondition)})
 ")},        
 
-        {"Ranking de Vendas por Estado", new Tuple<string[], string>(new[] {"Ranking de Vendas por Estado", "Ranking de Venda por Estado"}, $@"
+        {"Ranking de Vendas por Estado "+DateTime.Now.ToString("dd-MM-yy"), new Tuple<string[], string>(new[]
+
+
+        {"Ranking de Venda por Estado", "Ranking de Venda por estados", "Ranking de vendas por Estado", "Rnking de Vendas por Estado", "Rankng de Vendas por Estado", "Ranking d Vendas por Estado", "Ranking de Vendas po Estado", "Ranking de Vendas por Estad", "Rank de Vendas por Estado", "Classificação de Vendas por Estado", "Lista de Vendas por Estado", "Ranking de Vendas p/ Estado", "Rank de Vendas p/ Estado", "Ranking de Vendas por Estado", "Rnking de Venda por Estado", "Rankng de Venda por Estado", "Ranking d Venda por Estado", "Ranking de Venda po Estado", "Ranking de Venda por Estad", "Rank de Venda por Estado", "Classificação de Venda por Estado", "Lista de Venda por Estado", "Ranking de Venda p/ Estado", "Rank de Venda p/ Estado"}
+
+        , $@"
 WITH RankedData AS (
     SELECT
         Estado.Codigo [UF],
@@ -288,7 +541,10 @@ SELECT
 FROM RankedData
 ORDER BY Ranking;
 ")},
-        {"Ranking de Vendas por Produto", new Tuple<string[], string>(new[] {"Ranking de Vendas por Produto", "Ranking de Venda por Produtos"}, 
+        {"Ranking de Vendas por Produto "+DateTime.Now.ToString("dd-MM-yy"), new Tuple<string[], string>(new[]
+
+        {"Ranking de Vendas por Produto", "Ranking de Venda por Produtos", "Rnking de Vendas por Produto", "Rankng de Vendas por Produto", "Ranking d Vendas por Produto", "Ranking de Vendas po Produto", "Ranking de Vendas por Poduto", "Ranking de Vendas por Produt", "Rank de Vendas por Produto", "Classificação de Vendas por Produto", "Lista de Vendas por Produto", "Ranking de Vendas p/ Produto", "Rnking de Venda por Produtos", "Rankng de Venda por Produtos", "Ranking d Venda por Produtos", "Ranking de Venda po Produtos", "Ranking de Venda por Produts", "Rank de Venda por Produtos", "Classificação de Venda por Produtos", "Lista de Venda por Produtos", "Ranking de Venda p/ Produtos"}
+        , 
 $@"WITH ProductRankedData AS (
     SELECT
         Produto.Codigo [Cód. Produto],
@@ -320,7 +576,9 @@ SELECT
 FROM ProductRankedData
 ORDER BY Ranking;")},
 
-        {"Ranking de Vendas por Fabricante", new Tuple<string[], string>(new[] {"Ranking de Vendas por Fabricante", "Ranking de Venda por Fabricantes", "Ranking de Vendas por Fornecedor", "Ranking de Venda por Fornecedor"},
+        {"Ranking de Vendas por Fabricante", new Tuple<string[], string>(new[]
+        {"Ranking de Vendas por Fabricante", "Rnking de Vendas por Fabricante", "Rankng de Vendas por Fabricante", "Ranking d Vendas por Fabricante", "Ranking de Vendas po Fabricante", "Ranking de Vendas por Fabrcante", "Ranking de Vendas por Fabricnte", "Rank de Vendas por Fabricante", "Classificação de Vendas por Fabricante", "Lista de Vendas por Fabricante", "Ranking de Vendas p/ Fabricante", "Ranking de Venda por Fabricantes", "Rnking de Venda por Fabricantes", "Rankng de Venda por Fabricantes", "Ranking d Venda por Fabricantes", "Ranking de Venda po Fabricantes", "Ranking de Venda por Fabrcantes", "Ranking de Venda por Fabricntes", "Rank de Venda por Fabricantes", "Classificação de Venda por Fabricantes", "Lista de Venda por Fabricantes", "Ranking de Venda p/ Fabricantes", "Ranking de Vendas por Fornecedor", "Rnking de Vendas por Fornecedor", "Rankng de Vendas por Fornecedor", "Ranking d Vendas por Fornecedor", "Ranking de Vendas po Fornecedor", "Ranking de Vendas por Fornecdor", "Ranking de Vendas por Forncedor", "Rank de Vendas por Fornecedor", "Classificação de Vendas por Fornecedor", "Lista de Vendas por Fornecedor", "Ranking de Vendas p/ Fornecedor", "Ranking de Venda por Fornecedor", "Rnking de Venda por Fornecedor", "Rankng de Venda por Fornecedor", "Ranking d Venda por Fornecedor", "Ranking de Venda po Fornecedor", "Ranking de Venda por Fornecdor", "Ranking de Venda por Forncedor", "Rank de Venda por Fornecedor", "Classificação de Venda por Fornecedor", "Lista de Venda por Fornecedor", "Ranking de Venda p/ Fornecedor"}
+        ,
 $@"
 WITH ManufacturerRankedData AS (
     SELECT
@@ -353,7 +611,9 @@ FROM ManufacturerRankedData
 ORDER BY ManufacturerRanking;
 "
 )},
-        {"Ranking de Vendas por Cliente", new Tuple<string[], string>(new[] {"Ranking de Vendas por Cliente", "Ranking de Venda por Clientes"},
+        {"Ranking de Vendas por Cliente", new Tuple<string[], string>(new[]
+        {"Ranking de Vendas por Cliente", "Rnking de Vendas por Cliente", "Rankng de Vendas por Cliente", "Ranking d Vendas por Cliente", "Ranking de Vendas po Cliente", "Ranking de Vendas por Clinte", "Ranking de Vendas por Client", "Rank de Vendas por Cliente", "Classificação de Vendas por Cliente", "Lista de Vendas por Cliente", "Ranking de Vendas p/ Cliente", "Ranking de Venda por Clientes", "Rnking de Venda por Clientes", "Rankng de Venda por Clientes", "Ranking d Venda por Clientes", "Ranking de Venda po Clientes", "Ranking de Venda por Clentes", "Ranking de Venda por Clietes", "Rank de Venda por Clientes", "Classificação de Venda por Clientes", "Lista de Venda por Clientes", "Ranking de Venda p/ Clientes"}
+        ,
         $@"
 WITH ClientRankedData AS (
     SELECT
@@ -386,7 +646,9 @@ FROM ClientRankedData
 ORDER BY ClientRanking;
 "
 )},
-        {"Ranking de Vendas por Grupo de Clientes", new Tuple<string[], string>(new[] {"Ranking de Vendas por Grupo de Cliente", "Ranking de Vendas por Grupos de Cliente", "Ranking de Vendas por Grupos de Clientes"}, 
+        {"Ranking de Vendas por Grupo de Clientes", new Tuple<string[], string>(new[]
+        {"Ranking de Vendas por Grupo de Cliente", "Rnking de Vendas por Grupo de Cliente", "Rankng de Vendas por Grupo de Cliente", "Ranking d Vendas por Grupo de Cliente", "Ranking de Vendas po Grupo de Cliente", "Ranking de Vendas por Grupo d Cliente", "Ranking de Vendas por Grupo de Client", "Ranking de Vendas por Grupo de Clente", "Rank de Vendas por Grupo de Cliente", "Classificação de Vendas por Grupo de Cliente", "Lista de Vendas por Grupo de Cliente", "Ranking de Vendas p/ Grupo de Cliente", "Ranking de Vendas por Grupos de Cliente", "Rnking de Vendas por Grupos de Cliente", "Rankng de Vendas por Grupos de Cliente", "Ranking d Vendas por Grupos de Cliente", "Ranking de Vendas po Grupos de Cliente", "Ranking de Vendas por Grupos d Cliente", "Ranking de Vendas por Grupos de Clente", "Ranking de Vendas por Grupos de Client", "Rank de Vendas por Grupos de Cliente", "Classificação de Vendas por Grupos de Cliente", "Lista de Vendas por Grupos de Cliente", "Ranking de Vendas p/ Grupos de Cliente", "Ranking de Vendas por Grupos de Clientes", "Rnking de Vendas por Grupos de Clientes", "Rankng de Vendas por Grupos de Clientes", "Ranking d Vendas por Grupos de Clientes", "Ranking de Vendas po Grupos de Clientes", "Ranking de Vendas por Grupos d Clientes", "Ranking de Vendas por Grupos de Clentes", "Ranking de Vendas por Grupos de Cientes", "Rank de Vendas por Grupos de Clientes", "Classificação de Vendas por Grupos de Clientes", "Lista de Vendas por Grupos de Clientes", "Ranking de Vendas p/ Grupos de Clientes"}
+        , 
         $@"WITH ClientGroupRankedData AS (
     SELECT
         Grupo_Cliente.Des_GrpCli [Grupo de Clientes],
@@ -416,7 +678,11 @@ SELECT
 FROM ClientGroupRankedData
 ORDER BY ClientGroupRanking;")},
 
-        {"Ranking de Vendas por Tipo de Consumidor", new Tuple<string[], string>(new[] {"Ranking de Vendas por Tipos de Consumidor", "Ranking de Vendas por Tipo de Consumidor", "Ranking de Vendas por Tipos de Consumidor", "Ranking de Vendas por Esfera", "Ranking de Vendas por Esferas"}, 
+        {"Ranking de Vendas por Tipo de Consumidor", new Tuple<string[], string>(new[]
+
+
+        {"Ranking de Vendas por Tipos de Consumidor", "Rnking de Vendas por Tipos de Consumidor", "Rankng de Vendas por Tipos de Consumidor", "Ranking d Vendas por Tipos de Consumidor", "Ranking de Vendas po Tipos de Consumidor", "Ranking de Vendas por Tipos d Consumidor", "Ranking de Vendas por Tipos de Consumidr", "Ranking de Vendas por Tipos de Consumido", "Rank de Vendas por Tipos de Consumidor", "Classificação de Vendas por Tipos de Consumidor", "Lista de Vendas por Tipos de Consumidor", "Ranking de Vendas p/ Tipos de Consumidor", "Ranking de Vendas por Tipo de Consumidor", "Rnking de Vendas por Tipo de Consumidor", "Rankng de Vendas por Tipo de Consumidor", "Ranking d Vendas por Tipo de Consumidor", "Ranking de Vendas po Tipo de Consumidor", "Ranking de Vendas por Tipo d Consumidor", "Ranking de Vendas por Tipo de Consumidr", "Ranking de Vendas por Tipo de Consumido", "Rank de Vendas por Tipo de Consumidor", "Classificação de Vendas por Tipo de Consumidor", "Lista de Vendas por Tipo de Consumidor", "Ranking de Vendas p/ Tipo de Consumidor", "Ranking de Vendas por Esfera", "Rnking de Vendas por Esfera", "Rankng de Vendas por Esfera", "Ranking d Vendas por Esfera", "Ranking de Vendas po Esfera", "Ranking de Vendas por Esfer", "Ranking de Vendas por Esfra", "Rank de Vendas por Esfera", "Classificação de Vendas por Esfera", "Lista de Vendas por Esfera", "Ranking de Vendas p/ Esfera", "Ranking de Vendas por Esferas", "Rnking de Vendas por Esferas", "Rankng de Vendas por Esferas", "Ranking d Vendas por Esferas", "Ranking de Vendas po Esferas", "Ranking de Vendas por Esfras", "Ranking de Vendas por Eseras", "Rank de Vendas por Esferas", "Classificação de Vendas por Esferas", "Lista de Vendas por Esferas", "Ranking de Vendas p/ Esferas"}
+        , 
         $@"
 WITH ConsumerTypeRankedData AS (
     SELECT
@@ -453,7 +719,10 @@ FROM ConsumerTypeRankedData
 ORDER BY ConsumerTypeRanking;
 
 ")},
-        {"Ranking de Vendas por Vendedor", new Tuple<string[], string>(new[] {"Ranking de Vendas por Vendedor", "Ranking de Vendas por Vendedores"}, 
+        {"Ranking de Vendas por Vendedor", new Tuple<string[], string>(new[]
+                {"Ranking de Vendas por Tipos de Consumidor", "Rnking de Vendas por Tipos de Consumidor", "Rankng de Vendas por Tipos de Consumidor", "Ranking d Vendas por Tipos de Consumidor", "Ranking de Vendas po Tipos de Consumidor", "Ranking de Vendas por Tipos d Consumidor", "Ranking de Vendas por Tipos de Consumidr", "Ranking de Vendas por Tipos de Consumido", "Rank de Vendas por Tipos de Consumidor", "Classificação de Vendas por Tipos de Consumidor", "Lista de Vendas por Tipos de Consumidor", "Ranking de Vendas p/ Tipos de Consumidor", "Ranking de Vendas por Tipo de Consumidor", "Rnking de Vendas por Tipo de Consumidor", "Rankng de Vendas por Tipo de Consumidor", "Ranking d Vendas por Tipo de Consumidor", "Ranking de Vendas po Tipo de Consumidor", "Ranking de Vendas por Tipo d Consumidor", "Ranking de Vendas por Tipo de Consumidr", "Ranking de Vendas por Tipo de Consumido", "Rank de Vendas por Tipo de Consumidor", "Classificação de Vendas por Tipo de Consumidor", "Lista de Vendas por Tipo de Consumidor", "Ranking de Vendas p/ Tipo de Consumidor", "Ranking de Vendas por Esfera", "Rnking de Vendas por Esfera", "Rankng de Vendas por Esfera", "Ranking d Vendas por Esfera", "Ranking de Vendas po Esfera", "Ranking de Vendas por Esfer", "Ranking de Vendas por Esfra", "Rank de Vendas por Esfera", "Classificação de Vendas por Esfera", "Lista de Vendas por Esfera", "Ranking de Vendas p/ Esfera", "Ranking de Vendas por Esferas", "Rnking de Vendas por Esferas", "Rankng de Vendas por Esferas", "Ranking d Vendas por Esferas", "Ranking de Vendas po Esferas", "Ranking de Vendas por Esfras", "Ranking de Vendas por Eseras", "Rank de Vendas por Esferas", "Classificação de Vendas por Esferas", "Lista de Vendas por Esferas", "Ranking de Vendas p/ Esferas"}
+
+        ,
         $@"WITH SellerRankedData AS (
     SELECT
         Vendedor.Nome_Guerra [Vendedor],
@@ -484,7 +753,7 @@ SELECT
 FROM SellerRankedData
 ORDER BY SellerRanking;")},
 
-        {"Estoque", new Tuple<string[], string>(new[] {"Estoque"}, 
+        {"Estoque", new Tuple<string[], string>(new[] {"Estoque", "Estoqe", "Estoqu", "Estok", "Etoque", "Estque", "Estoc", "Stock", "Inventário", "Estoque ", "Estock", "Estoue", "Estoq", "Estocue", "Estoquue", "Esto"}, 
         $@"SELECT Produto.Codigo									[Cód. Produto],
                   Produto.Descricao								    [Produto],
                   Produto.Qtd_Disponivel + Produto.Qtd_Solicitado	[Qtd. Disponível],
@@ -543,11 +812,24 @@ AND ({(string.IsNullOrEmpty(stateCondition)? "1=1":stateCondition)})")}
             {
                 if (pair.Value.Item1.Any(keyword => input.IndexOf(keyword, StringComparison.OrdinalIgnoreCase) >= 0))
                 {
-                    return pair.Value.Item2; // Retorna a consulta SQL correspondente
+                    if (connection == null)
+                        Console.WriteLine("Conexão inválida");
+
+                     
+                    Archive archive = new Archive();
+                    archive.Id = 1;
+                    archive.query = pair.Value.Item2;
+                    var desc = pair.Key + " " + connection.description;
+                    var descp = (desc.Length >= 25 ? desc.Substring(0,25) : desc);
+                    archive.description = (string.IsNullOrEmpty(descp) ? "Gen" : descp)+DateTime.Now.ToString("hhmmss");
+                    archive.format = "E";
+                    archive.data = (await SchedulerApp_Query.ExecuteAsync(pair.Value.Item2,connection)).Item2;
+                    archive.titleReport = "Solicitação Relatório "+pair.Key;
+                    return new Tuple <Archive,SchedulerApp_Connection> (archive, connection); // Retorna a consulta SQL correspondente
                 }
             }
 
-            return string.Empty; // Se não encontrar nenhuma correspondência
+            return null; // Se não encontrar nenhuma correspondência
         }
 
         private static readonly Dictionary<string, int> MonthMap = new Dictionary<string, int>
@@ -672,6 +954,100 @@ AND ({(string.IsNullOrEmpty(stateCondition)? "1=1":stateCondition)})")}
 
             return "YEAR(date_Replace) = YEAR(GETDATE())";
         }
+        private static string GetDateInterpretation(string input)
+        {
+            var interpretation = new StringBuilder("Data -> ");
+
+            input = input.ToLower();
+            var periodIndex = Regex.Match(input, @"per[ií]odo d[eo]|entre").Index;
+            if (periodIndex > 0)
+            {
+                var matchLength = Regex.Match(input, @"per[ií]odo d[eo]|entre").Length;
+                input = input.Substring(periodIndex + matchLength);
+            }
+
+            var datePattern = @"(\d{1,2}[-/]\d{1,2}[-/]\d{4}|\d{4}[-/]\d{1,2}[-/]\d{1,2}|\d{1,2} de [a-z]+ de \d{4}|[a-z]+ de \d{4}|[a-z]+ desse ano|[a-z]+ do ano passado|[a-z]+ do ano retrasado|\d{1,2} dias atrás|primeiro [a-z]+ de \d{4}|[a-z]+ até [a-z]+|dia \d{1,2} de [a-z]+|dia \d{1,2} de [a-z]+ de \d{4}|\d{4}|[1-2] semestre|[1-4] trimestre)";
+            var matches = Regex.Matches(input, datePattern);
+
+            if (input.Contains("até hoje") || input.Contains("a partir de"))
+            {
+                interpretation.Append($"Período: de {matches[0].Value} até hoje");
+            }
+            else if (matches.Count == 1)
+            {
+                interpretation.Append($"Data única: {matches[0].Value}");
+            }
+            else if (matches.Count == 2)
+            {
+                interpretation.Append($"Período: de {matches[0].Value} até {matches[1].Value}");
+            }
+            else
+            {
+                interpretation.Append("Período: Este ano");
+            }
+
+            return interpretation.ToString();
+        }
+
+
+        public static List<string> getInterpretation(string input)
+        {
+            var interpretations = new List<string>();
+
+            // Chama o método para interpretar informações sobre produtos
+            var productInterpretation = GetProductInterpretation(input);
+            if (!string.IsNullOrEmpty(productInterpretation))
+            {
+                interpretations.Add("Produto -> " + productInterpretation);
+            }
+
+            // Chama o método para interpretar informações sobre clientes
+            var customerInterpretation = GetCustomerInterpretation(input);
+            if (!string.IsNullOrEmpty(customerInterpretation))
+            {
+                interpretations.Add("Cliente -> " + customerInterpretation);
+            }
+
+            // Chama o método para interpretar o tipo de cliente
+            var clientTypeInterpretation = GetClientTypeInterpretation(input);
+            if (!string.IsNullOrEmpty(clientTypeInterpretation))
+            {
+                interpretations.Add("Tipo de Cliente -> " + clientTypeInterpretation);
+            }
+
+            // Chama o método para interpretar informações sobre fabricantes ou fornecedores
+            var manufacturerInterpretation = GetManufacturerInterpretation(input);
+            if (!string.IsNullOrEmpty(manufacturerInterpretation))
+            {
+                interpretations.Add("Fabricante/Fornecedor -> " + manufacturerInterpretation);
+            }
+
+            // Chama o método para interpretar informações sobre fabricantes ou fornecedores
+            var stateInterpretation = GetStateInterpretation(input);
+            if (!string.IsNullOrEmpty(manufacturerInterpretation))
+            {
+                interpretations.Add("Estado -> " + stateInterpretation);
+            }
+
+            // Chama o método para interpretar informações sobre datas
+            var dateInterpretation = GetDateInterpretation(input);
+            if (!string.IsNullOrEmpty(dateInterpretation))
+            {
+                interpretations.Add("Data -> " + dateInterpretation);
+            }
+
+            // Chama o método para interpretar informações sobre a conexão
+            var connectionInterpretation = GetConnectionInterpretation(input);
+            if (!string.IsNullOrEmpty(connectionInterpretation))
+            {
+                interpretations.Add("Conexão -> "+connectionInterpretation);
+            }
+            
+
+            // Concatena todas as interpretações em uma única string
+            return interpretations;
+        }
+
 
 
         private static DateTime ConvertToDateTime(string dateStr, bool startOfPeriod)

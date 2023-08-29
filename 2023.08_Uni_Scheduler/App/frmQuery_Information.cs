@@ -267,7 +267,8 @@ namespace _2023._08_Uni_Scheduler.App
             txtActive.ReadOnly = true;
             txtActive.TabStop = false;
 
-            
+            txtQueryDescription.MaxLength = 25;
+            txtObservation.MaxLength = 255;
             txtOutput.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
                                                
         }

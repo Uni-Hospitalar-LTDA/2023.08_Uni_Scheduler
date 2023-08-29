@@ -143,7 +143,7 @@ namespace _2023._08_Uni_Scheduler.App
             frmSchedule_Information frmSchedule_Information = new frmSchedule_Information();
             frmSchedule_Information.insert = false;
             frmSchedule_Information.Schedule = Schedules.Where(quer => quer.id == dgvData.CurrentRow.Cells[0].Value.ToString()).FirstOrDefault();
-            frmSchedule_Information.ShowDialog();
+            frmSchedule_Information.Show();
             Schedules = await getSchedulesAsync();
             txtSearch.Text = string.Empty;
             addConnectionsToDataGridView(txtSearch.Text, dgvData);
@@ -152,7 +152,8 @@ namespace _2023._08_Uni_Scheduler.App
         {
             frmSchedule_Information frmSchedule_Information = new frmSchedule_Information();
             frmSchedule_Information.insert = true;
-            frmSchedule_Information.ShowDialog();
+            frmSchedule_Information.Show();
+            dgvData.Refresh();
             txtSearch.Text = string.Empty;
             Schedules = await getSchedulesAsync();
             addConnectionsToDataGridView(txtSearch.Text, dgvData);

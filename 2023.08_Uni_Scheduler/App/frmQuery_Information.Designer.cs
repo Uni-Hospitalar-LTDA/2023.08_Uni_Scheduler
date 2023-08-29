@@ -200,6 +200,7 @@
             // 
             // btnSave
             // 
+            this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSave.Location = new System.Drawing.Point(1204, 621);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(107, 23);
@@ -209,7 +210,8 @@
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(1317, 619);
+            this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnClose.Location = new System.Drawing.Point(1317, 621);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(107, 23);
             this.btnClose.TabIndex = 11;
@@ -244,6 +246,7 @@
             // 
             // btnPreviousPage
             // 
+            this.btnPreviousPage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnPreviousPage.Location = new System.Drawing.Point(1296, 158);
             this.btnPreviousPage.Margin = new System.Windows.Forms.Padding(2);
             this.btnPreviousPage.Name = "btnPreviousPage";
@@ -254,6 +257,7 @@
             // 
             // btnNextPage
             // 
+            this.btnNextPage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnNextPage.Location = new System.Drawing.Point(1362, 158);
             this.btnNextPage.Margin = new System.Windows.Forms.Padding(2);
             this.btnNextPage.Name = "btnNextPage";
@@ -264,6 +268,7 @@
             // 
             // label1
             // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(867, 100);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
@@ -283,6 +288,7 @@
             // 
             // pcbCharge
             // 
+            this.pcbCharge.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.pcbCharge.Location = new System.Drawing.Point(12, 621);
             this.pcbCharge.Name = "pcbCharge";
             this.pcbCharge.Size = new System.Drawing.Size(1187, 23);

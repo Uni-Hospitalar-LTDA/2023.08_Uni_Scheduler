@@ -102,6 +102,13 @@ JOIN [UHCDB].dbo.[SchedulerApp_Query_Connection] QC ON QC.idConnection = Connect
 where idQuery = {idQuery}";
             return await getAllToList(query);
         }
+        public async static Task<SchedulerApp_Connection> getToClassByDescriptionAsync(string description)
+        {
+            string query = $@"select * from [UHCDB].dbo.[SchedulerApp_Connection] Connection
+                              where description like '{description}'";
+            return await getToClass(query);
+        }
+
     }
 
 }

@@ -1,20 +1,13 @@
 ﻿using _2023._08_Uni_Scheduler.App.Generic_Screen;
 using _2023._08_Uni_Scheduler.Configuration;
 using _2023._08_Uni_Scheduler.Domain.Entities;
-using Org.BouncyCastle.Crypto.Operators;
-using Org.BouncyCastle.Utilities.Collections;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
-using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static Org.BouncyCastle.Math.Primes;
 
 namespace _2023._08_Uni_Scheduler.App
 {
@@ -74,10 +67,11 @@ namespace _2023._08_Uni_Scheduler.App
                 report.description = txtReportDescription.Text;
                 report.observation = txtObservation.Text;
                 report.withsheets = Convert.ToInt16(chkWithSheets.Checked).ToString();
+                report.format = string.Empty;
                 report.format += (chkXlsxFormat.Checked ? "E":"");
                 report.format += (chkJsonFormat.Checked ? "J":"");
                 report.format += (chkXmlFormat.Checked  ? "X":"");
-                report.format += (chkPdfFormat.Checked ? "P" : "");
+                report.format += (chkPdfFormat.Checked  ? "P" :"");
 
 
                 var toInsert = new List<SchedulerApp_Report>();
@@ -294,17 +288,25 @@ namespace _2023._08_Uni_Scheduler.App
             if (chkWithSheets.Checked)
             {
                 chkXlsxFormat.Checked = true;
-                chkXmlFormat.Checked = false;
-                chkJsonFormat.Checked = false;
                 chkXlsxFormat.Enabled = false;
+
+                chkXmlFormat.Checked = false;
                 chkXmlFormat.Enabled = false;
+
+                chkJsonFormat.Checked = false;
                 chkJsonFormat.Enabled = false;
+
+
             }
             else
             {                
                 chkXlsxFormat.Enabled = true;
+                
                 chkXmlFormat.Enabled = true;
+                chkXmlFormat.Checked = false;
+                
                 chkJsonFormat.Enabled = true;
+                chkJsonFormat.Checked = false;
             }
         }
 

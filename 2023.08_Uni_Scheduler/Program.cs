@@ -14,10 +14,10 @@ namespace _2023._08_Uni_Scheduler
         /// </summary>
         [STAThread]
         static void Main()
-        {
+       {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmTeste());
+            Application.Run(new frmMain());
         }
     }
 }

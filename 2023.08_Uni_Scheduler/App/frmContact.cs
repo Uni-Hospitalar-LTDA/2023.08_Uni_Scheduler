@@ -145,7 +145,7 @@ namespace _2023._08_Uni_Scheduler.App
             frmContact_Information frmContact_Information = new frmContact_Information();
             frmContact_Information.insert = false;
             frmContact_Information.contact = Contacts.Where(conn => conn.id == dgvData.CurrentRow.Cells[0].Value.ToString()).FirstOrDefault();
-            frmContact_Information.ShowDialog();
+            frmContact_Information.Show();
             Contacts = await getContactsAsync();
             txtSearch.Text = string.Empty;
             addConnectionsToDataGridView(txtSearch.Text, dgvData);
@@ -154,7 +154,7 @@ namespace _2023._08_Uni_Scheduler.App
         {
             frmContact_Information frmContact_Information = new frmContact_Information();
             frmContact_Information.insert = true;
-            frmContact_Information.ShowDialog();
+            frmContact_Information.Show();
             txtSearch.Text = string.Empty;
             Contacts = await getContactsAsync();
             addConnectionsToDataGridView(txtSearch.Text, dgvData);

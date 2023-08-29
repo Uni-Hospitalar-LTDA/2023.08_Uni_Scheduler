@@ -140,7 +140,7 @@ namespace _2023._08_Uni_Scheduler.App
             frmQuery_Information frmQuery_Information = new frmQuery_Information();
             frmQuery_Information.insert = false;
             frmQuery_Information.query = Queries.Where(quer => quer.id == dgvData.CurrentRow.Cells[0].Value.ToString()).FirstOrDefault();
-            frmQuery_Information.ShowDialog();
+            frmQuery_Information.Show();
             Queries = await getQueriesAsync();
             txtSearch.Text = string.Empty;
             addConnectionsToDataGridView(txtSearch.Text, dgvData);
@@ -149,7 +149,7 @@ namespace _2023._08_Uni_Scheduler.App
         {
             frmQuery_Information frmQuery_Information = new frmQuery_Information();
             frmQuery_Information.insert = true;
-            frmQuery_Information.ShowDialog();
+            frmQuery_Information.Show();
             txtSearch.Text = string.Empty;
             Queries = await getQueriesAsync();
             addConnectionsToDataGridView(txtSearch.Text, dgvData);

@@ -24,7 +24,7 @@ namespace _2023._08_Uni_Scheduler
 {
     public partial class frmMain : CustomForm
     {
-                                            
+
         public frmMain()
         {
             InitializeComponent();
@@ -44,19 +44,119 @@ namespace _2023._08_Uni_Scheduler
             //Form Events 
             ConfigureFormEvents();
         }
-        
-        
+
+
 
         /** Instance **/
         private System.Windows.Forms.Timer timerHour = new System.Windows.Forms.Timer();
         private System.Windows.Forms.Timer timerVerifySchedule = new System.Windows.Forms.Timer();
         private System.Windows.Forms.Timer timerSend = new System.Windows.Forms.Timer();
+        private System.Windows.Forms.Timer timerReportByMail = new System.Windows.Forms.Timer();
+        
         private SemaphoreSlim semaphore = new SemaphoreSlim(4); // Limita a 4 threads simultâneas.
         private object syncLock = new object();
         private List<SchedulerApp_Schedule> lScheds = new List<SchedulerApp_Schedule>();
         private Queue<SchedulerApp_Schedule> qScheds = new Queue<SchedulerApp_Schedule>();
 
         /** Async Methods **/
+        private async Task sendBySolicitation()
+        {
+            try
+            {                
+
+                Log("Iniciando envio de e-mails por solicitação...");
+                var teste = await SchedulerApp_Contact.getAllToListAllowedContactsAsync();
+                Email.getMailCredentials();
+                Log("Obtive as credenciais");
+                List<string> allowedContacts = teste.Select(contact => contact.mail).ToList();
+                var emails = Email.ListEmailTitlesAndSenders(allowedContacts);
+                Log("Listei " + emails.Count);
+                List<Task> emailTasks = new List<Task>();
+
+                foreach (var email in emails)
+                {
+                    Log($"Preparando para enviar e-mail para {email.from}...");
+                    var emailTask = SendIndividualEmailBySolicitationAsync(email);
+
+                    emailTasks.Add(emailTask);
+
+                    if (emailTasks.Count >= 4)
+                    {
+                        await Task.WhenAll(emailTasks);
+                        emailTasks.Clear();
+                    }
+                }
+
+                if (emailTasks.Count > 0)
+                {
+                    await Task.WhenAll(emailTasks);
+                }
+
+                Log($"Verificação Concluída. ");                
+            }
+            catch (Exception ex)
+            {
+                Log("Erro: " + ex.Message);
+            }
+            
+        }
+
+        private async Task SendIndividualEmailBySolicitationAsync(EmailMessage email)
+        {
+            try
+            {                
+
+                string description = string.Empty;
+                string bottom_message = $@"
+                    Atenciosamente,                                            
+                    Intelligence Bot";
+
+                List<string> contacts = new List<string>();
+                contacts.Add(email.from);
+
+                List<Archive> archives = new List<Archive>();
+                List<string> archives_description = new List<string>();
+                string logo = string.Empty;
+                bool withSheets = false;
+                
+                var query = await DateExtractor.GetReportTypeCondition(email.body);
+
+                if (query != null)
+                {
+                    archives.Add(query.Item1);
+                    logo = query.Item2.logo;
+
+                    if (query.Item1 == null)
+                    {
+                        Console.WriteLine($"Não foi possível enviar devido a um erro. [{DateTime.Now.ToString("hh:mm")}]");
+                        return;
+                    }
+
+                    description = $@"Olá,
+                            
+    Este robô envia relatórios e alertas de forma autônoma. Por favor, não nos responda. Para quaisquer dúvidas, entre em contato pelo e-mail <strong>ti@unihospitalar.com.br</strong> pelo telefone (81) 3472-7201.
+
+    Para a sua mensagem:
+
+    <strong>""{email.body.ToUpper()}""</strong>
+    {Email.GenerateHtmlWithDataTableAndList("Eu entendi que você solicitou os seguintes <strong>PARÂMETROS</strong>:", DateExtractor.getInterpretation(email.body))}
+    ";
+
+                    archives_description.Add(query.Item1.description);
+                    var archiveList = new List<string>();
+                    archiveList.Add(archives[0].description);
+
+                    string str = await Email.SendEmailWithExcelAttachment(contacts, "ti@unihospitalar.com.br", archives[0].titleReport, description, archiveList, bottom_message, logo, archives, withSheets);
+
+                    Log($"E-mail enviado com sucesso para {email.from}.");                    
+                }
+            }
+            catch (Exception ex)
+            {
+                // Seu código de tratamento de erros aqui
+                Log($"Erro ao enviar e-mail para {email.from}: {ex.Message}");                
+            }
+        }
         private async Task verifySchedule()
         {
             var newList = await SchedulerApp_Schedule.getNotifyList();
@@ -122,13 +222,16 @@ namespace _2023._08_Uni_Scheduler
                 }
             }
 
-            foreach (var item in itemsToProcess)
+            lsbSchedule.Invoke((Action)delegate
             {
-                int idx = lsbSchedule.Items.IndexOf($"{item.description} [{item.hour.Substring(0, 5)}]");
-                if (idx != -1) lsbSchedule.Items[idx] = $"{item.description} sendo enviado agora...";
+                foreach (var item in itemsToProcess)
+                {
+                    int idx = lsbSchedule.Items.IndexOf($"{item.description} [{item.hour.Substring(0, 5)}]");
+                    if (idx != -1) lsbSchedule.Items[idx] = $"{item.description} sendo enviado agora...";
 
-                sendTasks.Add(SendAndDequeueItemAsync(item));
-            }
+                    sendTasks.Add(SendAndDequeueItemAsync(item));
+                }
+            });
 
             await Task.WhenAll(sendTasks);
 
@@ -283,23 +386,29 @@ Este robô envia relatórios e alertas de forma autônoma. Por favor, não nos r
         private void Log(string message)
         {
             string currentTime = DateTime.Now.ToString("HH:mm:ss");
-            lsbLogs.Items.Add($"[{currentTime}] {message}");
+            lsbLogs.Invoke((Action) delegate
+            {
+                lsbLogs.Items.Add($"[{currentTime}] {message}");
+            } );
         }
         private void InsertInOrder(string item)
         {
-            for (int i = 0; i < lsbSchedule.Items.Count; i++)
+            lsbSchedule.Invoke((Action)delegate
             {
-                string currentItem = lsbSchedule.Items[i].ToString();
-                string currentHour = currentItem.Substring(currentItem.IndexOf("[") + 1, 5);
-
-                if (TimeSpan.Parse(item.Substring(item.IndexOf("[") + 1, 5)) < TimeSpan.Parse(currentHour))
+                for (int i = 0; i < lsbSchedule.Items.Count; i++)
                 {
-                    lsbSchedule.Items.Insert(i, item);
-                    return;
+                    string currentItem = lsbSchedule.Items[i].ToString();
+                    string currentHour = currentItem.Substring(currentItem.IndexOf("[") + 1, 5);
+
+                    if (TimeSpan.Parse(item.Substring(item.IndexOf("[") + 1, 5)) < TimeSpan.Parse(currentHour))
+                    {
+                        lsbSchedule.Items.Insert(i, item);
+                        return;
+                    }
                 }
-            }
-            // Se não foi inserido anteriormente, adiciona ao final
-            lsbSchedule.Items.Add(item);
+                // Se não foi inserido anteriormente, adiciona ao final
+                lsbSchedule.Items.Add(item);
+            });
         }
         private bool ShouldSendNow(SchedulerApp_Schedule item)
         {
@@ -322,10 +431,9 @@ Este robô envia relatórios e alertas de forma autônoma. Por favor, não nos r
         /** Timer Configuration **/
         private void ConfigureTimerProperties()
         {
-            
             timerHour.Interval = 1000;
-            timerVerifySchedule.Interval = 1000;
-
+            timerVerifySchedule.Interval = 90000;
+            timerReportByMail.Interval = 30000;
             timerSend.Interval = 60000; // 60.000 milissegundos = 1 minuto
 
         }
@@ -338,6 +446,7 @@ Este robô envia relatórios e alertas de forma autônoma. Por favor, não nos r
             timerHour.Tick += timerHour_Tick;
             timerVerifySchedule.Tick += timerVerifySchedule_Tick;
             timerSend.Tick += timerSend_Tick;
+            timerReportByMail.Tick += timerReportByMail_Tick;
 
         }
         private void timerHour_Tick(object sender, EventArgs e)
@@ -349,17 +458,27 @@ Este robô envia relatórios e alertas de forma autônoma. Por favor, não nos r
         }
         private async void timerVerifySchedule_Tick(object sender, EventArgs e)
         {
-            await verifySchedule();
+            await Task.Run(() => verifySchedule());
         }
         private async void timerSend_Tick(object sender, EventArgs e)
         {
-            await ProcessAndSendReports();
+            await Task.Run(() => ProcessAndSendReports());
         }
-             
+     
+        private bool isProcessing = false;
+        private async void timerReportByMail_Tick(object sender, EventArgs e)
+        {
+            if (isProcessing)
+                return;
+
+            isProcessing = true;
+            await Task.Run(() => sendBySolicitation());
+            isProcessing = false;
+        }
         /** Form Configuration **/
         private void ConfigureFormProperties()
         {
-            
+
         }
         private void ConfigureFormAttributes()
         {
@@ -379,13 +498,45 @@ Este robô envia relatórios e alertas de forma autônoma. Por favor, não nos r
             ConfigureButtonEvents();
             ConfigureTextBoxEvents();
             ConfigureTimerEvents();
+            ConfigureListBoxEvents();
         }
-       
+
+        /** ListBox **/
+        private void ConfigureListBoxEvents()
+        {
+            lsbLogs.MeasureItem += lsbLogs_MeasureItem;
+            lsbLogs.DrawItem += lsbLogs_DrawItem;
+        }
+
+        private void lsbLogs_MeasureItem(object sender, MeasureItemEventArgs e)
+        {
+            // Calcula a altura necessária para cada item (levando em consideração quebras de linha)
+            if (e.Index >= 0 && e.Index < lsbLogs.Items.Count)
+            {
+                string itemText = lsbLogs.Items[e.Index].ToString();
+                SizeF textSize = e.Graphics.MeasureString(itemText, lsbLogs.Font, lsbLogs.ClientSize.Width);
+                e.ItemHeight = (int)textSize.Height;
+            }
+        }
+
+        private void lsbLogs_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            // Desenha o item com quebras de linha
+            if (e.Index >= 0 && e.Index < lsbLogs.Items.Count)
+            {
+                e.DrawBackground();
+                e.DrawFocusRectangle();
+
+                string itemText = lsbLogs.Items[e.Index].ToString();
+                e.Graphics.DrawString(itemText, lsbLogs.Font, Brushes.Black, e.Bounds);
+            }
+        }
+
         /** Label Configuration **/
         private void ConfigureLabelProperties()
         {
             lblApplicationName.Text = CustomApplication.name;
-        }        
+        }
         private void ConfigureLabelEvents()
         {
 
@@ -397,29 +548,29 @@ Este robô envia relatórios e alertas de forma autônoma. Por favor, não nos r
             pcbEmailAnalysis.Visible = false;
             pcbEmailAnalysis.Maximum = 100;
             pcbEmailAnalysis.Style = ProgressBarStyle.Marquee;
-            
+
             pcbScheduledMail.Visible = false;
             pcbScheduledMail.Maximum = 100;
             pcbScheduledMail.Style = ProgressBarStyle.Marquee;
 
-            pcbOperation.Visible = false;   
-        }        
+            pcbOperation.Visible = false;
+        }
         private void ConfigureProgressbarEvents()
         {
 
         }
-        
+
         /** Button Configuration **/
         private void ConfigureButtonProperties()
         {
 
-        }        
+        }
         private void ConfigureButtonEvents()
         {
             btnEmailAnalysis_Play.Click += btnEmailAnalysis_Play_Click;
             btnScheduledMail_Play.Click += btnScheduledMail_Play_Click;
             btnEmailAnalysis_Stop.Click += btnEmailAnalysis_Stop_Click;
-            btnEmailAnalysis_Stop.Click += btnEmailAnalysis_Stop_Click;
+            btnScheduledMail_Stop.Click += btnScheduledMail_Stop_Click;
 
             btnLogs.Click += btnLogs_Click;
             btnConnections.Click += btnConnections_Click;
@@ -450,27 +601,30 @@ Este robô envia relatórios e alertas de forma autônoma. Por favor, não nos r
         {
             CustomApplication.ShowOrActivateForm<frmContact>();
         }
-        private void btnSchedules_Click (object sender, EventArgs e)
+        private void btnSchedules_Click(object sender, EventArgs e)
         {
             CustomApplication.ShowOrActivateForm<frmSchedule>();
         }
         private void btnEmailAnalysis_Play_Click(object sender, EventArgs e)
-        {
-            pcbEmailAnalysis.Visible = true;
-            btnEmailAnalysis_Play.Enabled = false;                        
+        {            
+                pcbEmailAnalysis.Visible = true;
+                timerReportByMail.Start();
+            
+                btnEmailAnalysis_Play.Enabled = false;            
         }
-        private void btnScheduledMail_Play_Click(object sender, EventArgs e) 
+        private void btnScheduledMail_Play_Click(object sender, EventArgs e)
         {
             pcbScheduledMail.Visible = true;
             btnScheduledMail_Play.Enabled = false;
             timerVerifySchedule.Start();
-            timerSend.Start();   
+            timerSend.Start();
         }
         private void btnEmailAnalysis_Stop_Click(object sender, EventArgs e)
         {
             pcbEmailAnalysis.Visible = false;
-            btnEmailAnalysis_Play.Enabled = false;
-            btnEmailAnalysis_Stop.Enabled = true;            
+            timerReportByMail.Stop();
+            btnEmailAnalysis_Play.Enabled = true;
+            btnEmailAnalysis_Stop.Enabled = false;
         }
         private void btnScheduledMail_Stop_Click(object sender, EventArgs e)
         {
@@ -479,12 +633,12 @@ Este robô envia relatórios e alertas de forma autônoma. Por favor, não nos r
             btnScheduledMail_Stop.Enabled = false;
             timerVerifySchedule.Stop();
             timerSend.Stop();
-           
+
         }
         private void btnExit_Click(object sender, EventArgs e)
         {
             if (DialogResult.Yes == MessageBox.Show("Deseja encerrar?", "Sair da aplicação", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
-                Application.Exit(); 
+                Application.Exit();
         }
         private void btnLogs_Click(object sender, EventArgs e)
         {
@@ -496,20 +650,17 @@ Este robô envia relatórios e alertas de forma autônoma. Por favor, não nos r
         {
             txtHour.ReadOnly = true;
             txtHour.TabStop = false;
-            txtHour.TextAlign = HorizontalAlignment.Center;            
+            txtHour.TextAlign = HorizontalAlignment.Center;
         }
         private void ConfigureTextBoxAttributes()
         {
-            txtHour.Text = DateTime.Now.ToLongTimeString();            
+            txtHour.Text = DateTime.Now.ToLongTimeString();
         }
         private void ConfigureTextBoxEvents()
         {
 
         }
 
-        private async void button1_Click(object sender, EventArgs e)
-        {
-            
-        }
+       
     }
 }
