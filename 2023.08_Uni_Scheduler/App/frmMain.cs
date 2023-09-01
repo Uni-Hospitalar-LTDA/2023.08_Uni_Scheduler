@@ -2,6 +2,10 @@
 using _2023._08_Uni_Scheduler.Configuration;
 using _2023._08_Uni_Scheduler.Domain.Entities;
 using _2023._08_Uni_Scheduler.Domain.Entities.Email;
+using DocumentFormat.OpenXml.Drawing;
+using DocumentFormat.OpenXml.Presentation;
+using DocumentFormat.OpenXml.Spreadsheet;
+using iText.Kernel.Colors;
 using Microsoft.Office.Core;
 using System;
 using System.Collections.Generic;
@@ -19,6 +23,7 @@ using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using Color = System.Drawing.Color;
 
 namespace _2023._08_Uni_Scheduler
 {
@@ -39,6 +44,7 @@ namespace _2023._08_Uni_Scheduler
             ConfigureButtonProperties();
             ConfigureTextBoxProperties();
             ConfigureTimerProperties();
+            ConfigureButtonProperties();
 
 
             //Form Events 
@@ -562,6 +568,17 @@ Este robô envia relatórios e alertas de forma autônoma. Por favor, não nos r
             pcbScheduledMail.Style = ProgressBarStyle.Marquee;
 
             pcbOperation.Visible = false;
+
+            //Colors from Progress Bar EmailAnalysis
+            pcbEmailAnalysis.ProgressColor = Color.Green;
+            pcbEmailAnalysis.ProgressColor2 = Color.SpringGreen;
+            pcbEmailAnalysis.BorderRadius = 3;
+
+            //Colors from Progress Bar ScheduledMail
+            pcbScheduledMail.ProgressColor = Color.Green;
+            pcbScheduledMail.ProgressColor2 = Color.SpringGreen;
+            pcbScheduledMail.BorderRadius = 3;          
+   
         }
         private void ConfigureProgressbarEvents()
         {
@@ -571,7 +588,24 @@ Este robô envia relatórios e alertas de forma autônoma. Por favor, não nos r
         /** Button Configuration **/
         private void ConfigureButtonProperties()
         {
+            //Play button
+            btnEmailAnalysis_Play.FillColor = Color.FromArgb(92, 184, 92);
+            btnEmailAnalysis_Play.Cursor = Cursors.Hand;
+            btnEmailAnalysis_Play.Animated = true;
+            //Stop Button
+            btnEmailAnalysis_Stop.FillColor = Color.LightCoral;
+            btnEmailAnalysis_Stop.Cursor = Cursors.Hand;
+            btnEmailAnalysis_Stop.Animated = true;
 
+            // Schedule Play Button
+            btnScheduledMail_Play.FillColor = Color.FromArgb(92, 184, 92);
+            btnScheduledMail_Play.Cursor = Cursors.Hand;
+            btnScheduledMail_Play.Animated = true;
+
+            // Schedule Stop Button
+            btnScheduledMail_Stop.FillColor = Color.LightCoral;
+            btnScheduledMail_Stop.Cursor = Cursors.Hand;
+            btnScheduledMail_Stop.Animated = true;
         }
         private void ConfigureButtonEvents()
         {
@@ -617,13 +651,14 @@ Este robô envia relatórios e alertas de forma autônoma. Por favor, não nos r
         {            
                 pcbEmailAnalysis.Visible = true;
                 timerReportByMail.Start();
-            
+                btnEmailAnalysis_Stop.Enabled = true;
                 btnEmailAnalysis_Play.Enabled = false;            
         }
         private void btnScheduledMail_Play_Click(object sender, EventArgs e)
         {
             pcbScheduledMail.Visible = true;
             btnScheduledMail_Play.Enabled = false;
+            btnScheduledMail_Stop.Enabled = true;
             timerVerifySchedule.Start();
             timerSend.Start();
         }
@@ -669,6 +704,11 @@ Este robô envia relatórios e alertas de forma autônoma. Por favor, não nos r
 
         }
 
-       
+    
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
