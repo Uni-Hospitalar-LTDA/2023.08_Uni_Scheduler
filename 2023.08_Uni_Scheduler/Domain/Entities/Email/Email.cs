@@ -15,6 +15,7 @@ using MimeKit;
 using System.Windows.Forms;
 using MailKit.Search;
 using System.Collections.Concurrent;
+using MailKit.Net.Pop3;
 
 namespace _2023._08_Uni_Scheduler.Domain.Entities.Email
 {
@@ -25,28 +26,28 @@ namespace _2023._08_Uni_Scheduler.Domain.Entities.Email
         public static void getMailCredentials()
         {
             //Microsoft 1
-            //_attributes.Add(new EmailAttributes()
-            //{
-            //    service = "Gmail"
-            //    ,
-            //    popPort = 995
-            //    ,
-            //    popServer = "pop.gmail.com"
-            //    ,
-            //    smtpPort = 587
-            //    ,
-            //    smtpServer = "smtp.gmail.com"
-            //    ,
-            //    imapPort = 993
-            //    ,
-            //    imapServer = "imap.gmail.com"
-            //    ,
-            //    useSsl = true
-            //    ,
-            //    username = "inteligence@unihospitalar.com.br"
-            //    ,
-            //    password = "!@#asd253"
-            //});
+            _attributes.Add(new EmailAttributes()
+            {
+                service = "Gmail"
+                ,
+                popPort = 995
+                ,
+                popServer = "pop.gmail.com"
+                ,
+                smtpPort = 587
+                ,
+                smtpServer = "smtp.gmail.com"
+                ,
+                imapPort = 993
+                ,
+                imapServer = "imap.gmail.com"
+                ,
+                useSsl = true
+                ,
+                username = "inteligence@unihospitalar.com.br"
+                ,
+                password = "!@#asd253"
+            });
             //_attributes.Add(new EmailAttributes()
             //{
             //    service = "Hotmail"
@@ -70,28 +71,28 @@ namespace _2023._08_Uni_Scheduler.Domain.Entities.Email
             //    ,
             //    password = "!@#asd253"
             //});
-            _attributes.Add(new EmailAttributes()
-            {
-                service = "Hotmail"
-                ,
-                popPort = 995
-                ,
-                popServer = "outlook.office365.com"
-                ,
-                smtpPort = 587
-                ,
-                smtpServer = "smtp.office365.com"
-                ,
-                imapPort = 993
-                ,
-                imapServer = "outlook.office365.com"
-                ,
-                useSsl = true
-                ,
-                username = "testeunihospitalar2@hotmail.com"
-                ,
-                password = "rfds3142365."
-            });
+            //_attributes.Add(new EmailAttributes()
+            //{
+            //    service = "Hotmail"
+            //    ,
+            //    popPort = 995
+            //    ,
+            //    popServer = "outlook.office365.com"
+            //    ,
+            //    smtpPort = 587
+            //    ,
+            //    smtpServer = "smtp.office365.com"
+            //    ,
+            //    imapPort = 993
+            //    ,
+            //    imapServer = "outlook.office365.com"
+            //    ,
+            //    useSsl = true
+            //    ,
+            //    username = "testeunihospitalar2@hotmail.com"
+            //    ,
+            //    password = "rfds3142365."
+            //});
         }
         public static async Task<string> SendEmailWithExcelAttachment(List<string> toAddresses, string ccAddress, string subject, string bodyContent, List<string> itens, string bottom_message, string logo,
         List<Archive> additionalAttachments, bool withSheet = false)
@@ -314,7 +315,7 @@ namespace _2023._08_Uni_Scheduler.Domain.Entities.Email
             }
             return html;
         }
-        public static List<EmailMessage> ListEmailTitlesAndSenders(List<string> mailList)
+        public static List<EmailMessage> ListImapEmailTitlesAndSenders(List<string> mailList)
         {
             ConcurrentBag<EmailMessage> emailMessages = new ConcurrentBag<EmailMessage>();
 
@@ -359,6 +360,52 @@ namespace _2023._08_Uni_Scheduler.Domain.Entities.Email
 
                         // Expunge to commit changes
                         inbox.Expunge();
+
+                        client.Disconnect(true);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Failed to fetch emails from {credentials.username}: " + ex.Message);
+                }
+            }
+
+            return emailMessages.ToList();
+        }
+        public static List<EmailMessage> ListPopEmailTitlesAndSenders(List<string> mailList)
+        {
+            ConcurrentBag<EmailMessage> emailMessages = new ConcurrentBag<EmailMessage>();
+
+            foreach (var credentials in _attributes)
+            {
+                try
+                {
+                    using (var client = new Pop3Client())
+                    {
+                        client.Connect(credentials.popServer, credentials.popPort, credentials.useSsl);
+                        client.Authenticate(credentials.username, credentials.password);
+
+                        int messageCount = client.GetMessageCount();
+                        for (int i = 0; i < messageCount; i++)
+                        {
+                            var message = client.GetMessage(i);
+                            var senderEmail = message.From.Mailboxes.FirstOrDefault()?.Address;
+
+                            if (senderEmail != null && mailList.Contains(senderEmail))
+                            {
+                                EmailMessage emailMessage = new EmailMessage
+                                {
+                                    id = message.MessageId,
+                                    subject = message.Subject,
+                                    body = message.TextBody,
+                                    from = senderEmail
+                                };
+
+                                emailMessages.Add(emailMessage);
+
+                                // No need to mark as read, POP3 doesn't have that concept
+                            }
+                        }
 
                         client.Disconnect(true);
                     }

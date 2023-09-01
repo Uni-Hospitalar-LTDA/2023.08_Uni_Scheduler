@@ -366,22 +366,22 @@ namespace _2023._08_Uni_Scheduler.Configuration
         private async static Task<SchedulerApp_Connection> GetConnectionCondition(string input)
         {
             // Convertendo toda a entrada para minúsculas para facilitar o casamento de padrões
-            input = input.ToLower();            
-           
+            input = input.ToLower();
+
             // Verifica se as conexões de Pernambuco são mencionadas na entrada
-            if (Regex.IsMatch(input, @"(uni hospitalar ltda|uni hospitalar|uni pe|uni pernambuco|uni recife|pernambuco|pe)\b"))
+            if (Regex.IsMatch(input, @"(uni hospitalar ltda|uni hospitalar|uni pe|uni pernambuco|uni recife|uni hosp)\b"))
             {
                 return await SchedulerApp_Connection.getToClassByDescriptionAsync("PE");
             }
 
             // Verifica se as conexões de Ceará são mencionadas na entrada
-            if (Regex.IsMatch(input, @"(uni hospitalar ceara|uni ceara|uni ce|ceará|ceara|ce)\b"))
+            if (Regex.IsMatch(input, @"(uni hospitalar cear[aá]|uni ceara|uni ce|uni hosp ce)\b"))
             {
                 return await SchedulerApp_Connection.getToClassByDescriptionAsync("CE");
             }
 
             // Verifica se as conexões de São Paulo são mencionadas na entrada
-            if (Regex.IsMatch(input, @"(sp hospitalar|são paulo|sp hosp)\b"))
+            if (Regex.IsMatch(input, @"(sp hospitalar|sp hosp)\b"))
             {
                 return await SchedulerApp_Connection.getToClassByDescriptionAsync("SP");
             }
@@ -396,19 +396,19 @@ namespace _2023._08_Uni_Scheduler.Configuration
             var interpretations = new List<string>();
 
             // Verifica se as conexões de Pernambuco são mencionadas na entrada
-            if (Regex.IsMatch(input, @"(uni hospitalar ltda|uni hospitalar|uni pe|uni pernambuco|uni recife|pernambuco|pe)\b"))
+            if (Regex.IsMatch(input, @"(uni hospitalar ltda|uni hospitalar|uni pe|uni pernambuco|uni recife|uni hosp)\b"))
             {
                 interpretations.Add("Conexão -> Pernambuco");
             }
 
             // Verifica se as conexões de Ceará são mencionadas na entrada
-            if (Regex.IsMatch(input, @"(uni hospitalar ceara|uni ceara|uni ce|ceará|ceara|ce)\b"))
+            if (Regex.IsMatch(input, @"(uni hospitalar cear[aá]|uni ceara|uni ce|uni hosp ce)\b"))
             {
                 interpretations.Add("Conexão -> Ceará");
             }
 
             // Verifica se as conexões de São Paulo são mencionadas na entrada
-            if (Regex.IsMatch(input, @"(sp hospitalar|são paulo|sp hosp)\b"))
+            if (Regex.IsMatch(input, @"(sp hospitalar|sp hosp)\b"))
             {
                 interpretations.Add("Conexão -> São Paulo");
             }
@@ -465,7 +465,7 @@ namespace _2023._08_Uni_Scheduler.Configuration
             }
 
             // Verifica se os tipos de cliente públicos são mencionados na entrada
-            if (Regex.IsMatch(input, @"(público|pub)\b"))
+            if (Regex.IsMatch(input, @"(p[úu]blico|pub)\b"))
             {
                 interpretations.Add("Cliente -> Tipo: Público");
             }
@@ -526,10 +526,12 @@ WITH RankedData AS (
     WHERE NF_Saida.Status = 'F'
       AND NF_Saida.Cod_Cfo1 IN (5102, 5114, 5405, 5922, 6102, 6108, 6114, 6119, 6403, 6404, 6922)
       AND ({(string.IsNullOrEmpty(clientCondition) ? "1=1" : clientCondition)})
+      AND ({(string.IsNullOrEmpty(typeClientCondition) ? "1=1" : typeClientCondition)})     
       AND ({(string.IsNullOrEmpty(productCondition) ? "1=1" : productCondition)})
       AND ({(string.IsNullOrEmpty(manufacturerCondition) ? "1=1" : manufacturerCondition)})
       AND ({(string.IsNullOrEmpty(dateCondition) ? "1=1" : dateCondition.Replace("date_Replace", "Dat_Emissao"))})      
-      AND ({(string.IsNullOrEmpty(typeClientCondition) ? "1=1" : typeClientCondition)})     
+      AND ({(string.IsNullOrEmpty(stateCondition) ? "1=1" : stateCondition)})
+      
     GROUP BY Estado.Codigo
 )
 SELECT
@@ -560,10 +562,11 @@ $@"WITH ProductRankedData AS (
     WHERE NF_Saida.Status = 'F'
       AND NF_Saida.Cod_Cfo1 IN (5102, 5114, 5405, 5922, 6102, 6108, 6114, 6119, 6403, 6404, 6922)
       AND ({(string.IsNullOrEmpty(clientCondition) ? "1=1" : clientCondition)})      
+      AND ({(string.IsNullOrEmpty(typeClientCondition) ? "1=1" : typeClientCondition)})     
       AND ({(string.IsNullOrEmpty(manufacturerCondition) ? "1=1" : manufacturerCondition)})
       AND ({(string.IsNullOrEmpty(dateCondition) ? "1=1" : dateCondition.Replace("date_Replace", "Dat_Emissao"))})
       AND ({(string.IsNullOrEmpty(stateCondition) ? "1=1" : stateCondition)})
-      AND ({(string.IsNullOrEmpty(typeClientCondition) ? "1=1" : typeClientCondition)})     
+      
     GROUP BY Produto.Codigo, Produto.Descricao
 )
 SELECT
@@ -595,10 +598,11 @@ WITH ManufacturerRankedData AS (
     WHERE NF_Saida.Status = 'F'
       AND NF_Saida.Cod_Cfo1 IN (5102, 5114, 5405, 5922, 6102, 6108, 6114, 6119, 6403, 6404, 6922)
       AND ({(string.IsNullOrEmpty(clientCondition) ? "1=1" : clientCondition)})
-      AND ({(string.IsNullOrEmpty(productCondition) ? "1=1" : productCondition)})      
-      AND ({(string.IsNullOrEmpty(dateCondition) ? "1=1" : dateCondition.Replace("date_Replace", "Dat_Emissao"))})
-      AND ({(string.IsNullOrEmpty(stateCondition) ? "1=1" : stateCondition)})
       AND ({(string.IsNullOrEmpty(typeClientCondition) ? "1=1" : typeClientCondition)})     
+      AND ({(string.IsNullOrEmpty(productCondition) ? "1=1" : productCondition)})            
+      AND ({(string.IsNullOrEmpty(stateCondition) ? "1=1" : stateCondition)})
+      AND ({(string.IsNullOrEmpty(dateCondition) ? "1=1" : dateCondition.Replace("date_Replace", "Dat_Emissao"))})
+      
     GROUP BY Fabricante.Codigo, Fabricante.Fantasia
 )
 SELECT
@@ -630,10 +634,10 @@ WITH ClientRankedData AS (
     WHERE NF_Saida.Status = 'F'
       AND NF_Saida.Cod_Cfo1 IN (5102, 5114, 5405, 5922, 6102, 6108, 6114, 6119, 6403, 6404, 6922)      
       AND ({(string.IsNullOrEmpty(productCondition) ? "1=1" : productCondition)})
-      AND ({(string.IsNullOrEmpty(manufacturerCondition) ? "1=1" : manufacturerCondition)})
-      AND ({(string.IsNullOrEmpty(dateCondition) ? "1=1" : dateCondition.Replace("date_Replace", "Dat_Emissao"))})
+      AND ({(string.IsNullOrEmpty(manufacturerCondition) ? "1=1" : manufacturerCondition)})      
       AND ({(string.IsNullOrEmpty(stateCondition) ? "1=1" : stateCondition)})
       AND ({(string.IsNullOrEmpty(typeClientCondition) ? "1=1" : typeClientCondition)})     
+      AND ({(string.IsNullOrEmpty(dateCondition) ? "1=1" : dateCondition.Replace("date_Replace", "Dat_Emissao"))})
     GROUP BY Cliente.Codigo, Cliente.Razao_Social
 )
 SELECT
@@ -664,10 +668,10 @@ ORDER BY ClientRanking;
     WHERE NF_Saida.Status = 'F'
       AND NF_Saida.Cod_Cfo1 IN (5102, 5114, 5405, 5922, 6102, 6108, 6114, 6119, 6403, 6404, 6922)      
       AND ({(string.IsNullOrEmpty(productCondition) ? "1=1" : productCondition)})
-      AND ({(string.IsNullOrEmpty(manufacturerCondition) ? "1=1" : manufacturerCondition)})
+      AND ({(string.IsNullOrEmpty(typeClientCondition) ? "1=1" : typeClientCondition)})           
+      AND ({(string.IsNullOrEmpty(manufacturerCondition) ? "1=1" : manufacturerCondition)})      
+      AND ({(string.IsNullOrEmpty(stateCondition) ? "1=1" : stateCondition)})      
       AND ({(string.IsNullOrEmpty(dateCondition) ? "1=1" : dateCondition.Replace("date_Replace", "Dat_Emissao"))})
-      AND ({(string.IsNullOrEmpty(stateCondition) ? "1=1" : stateCondition)})
-      AND ({(string.IsNullOrEmpty(typeClientCondition) ? "1=1" : typeClientCondition)})     
     GROUP BY Grupo_Cliente.Des_GrpCli
 )
 SELECT
@@ -704,10 +708,9 @@ WITH ConsumerTypeRankedData AS (
     WHERE NF_Saida.Status = 'F'
       AND NF_Saida.Cod_Cfo1 IN (5102, 5114, 5405, 5922, 6102, 6108, 6114, 6119, 6403, 6404, 6922)      
       AND ({(string.IsNullOrEmpty(productCondition) ? "1=1" : productCondition)})
-      AND ({(string.IsNullOrEmpty(manufacturerCondition) ? "1=1" : manufacturerCondition)})
+      AND ({(string.IsNullOrEmpty(manufacturerCondition) ? "1=1" : manufacturerCondition)})      
+      AND ({(string.IsNullOrEmpty(stateCondition) ? "1=1" : stateCondition)})      
       AND ({(string.IsNullOrEmpty(dateCondition) ? "1=1" : dateCondition.Replace("date_Replace", "Dat_Emissao"))})
-      AND ({(string.IsNullOrEmpty(stateCondition) ? "1=1" : stateCondition)})
-      AND ({(string.IsNullOrEmpty(typeClientCondition) ? "1=1" : typeClientCondition)})     
     GROUP BY Cliente.Tipo_Consumidor
 )
 SELECT
@@ -738,11 +741,13 @@ ORDER BY ConsumerTypeRanking;
     WHERE NF_Saida.Status = 'F'
       AND NF_Saida.Cod_Cfo1 IN (5102, 5114, 5405, 5922, 6102, 6108, 6114, 6119, 6403, 6404, 6922)
       AND ({(string.IsNullOrEmpty(clientCondition) ? "1=1" : clientCondition)})
-      AND ({(string.IsNullOrEmpty(productCondition) ? "1=1" : productCondition)})
-      AND ({(string.IsNullOrEmpty(manufacturerCondition) ? "1=1" : manufacturerCondition)})
-      AND ({(string.IsNullOrEmpty(dateCondition) ? "1=1" : dateCondition.Replace("date_Replace", "Dat_Emissao"))})
-      AND ({(string.IsNullOrEmpty(stateCondition) ? "1=1" : stateCondition)})
       AND ({(string.IsNullOrEmpty(typeClientCondition) ? "1=1" : typeClientCondition)})     
+      AND ({(string.IsNullOrEmpty(productCondition) ? "1=1" : productCondition)})      
+      AND ({(string.IsNullOrEmpty(manufacturerCondition) ? "1=1" : manufacturerCondition)})
+      AND ({(string.IsNullOrEmpty(stateCondition) ? "1=1" : stateCondition)})
+      AND ({(string.IsNullOrEmpty(dateCondition) ? "1=1" : dateCondition.Replace("date_Replace", "Dat_Emissao"))})
+      
+      
     GROUP BY Vendedor.Nome_Guerra
 )
 SELECT
@@ -777,6 +782,11 @@ ORDER BY Produto.Codigo
        Cliente.Codigo [Cód. Cliente] ,
        Cliente.Razao_Social [Cliente] ,
        Cliente.Cgc_Cpf [CNPJ / CPF CLI] ,
+       [Tipo de Cliente] = CASE Tipo_Consumidor WHEN 'P' THEN 'Público'
+                                                WHEN 'M' THEN 'Público'
+                                                WHEN 'E' THEN 'Público'
+                                                else 'Privado'
+END,
        NF_Saida_Itens.Qtd_Produto [Qtd.Vendas] ,
        NF_Saida_Itens.Vlr_TotItem [Valor]
 FROM	   [DMD].dbo.[NFSCB] NF_Saida

@@ -69,7 +69,7 @@ namespace _2023._08_Uni_Scheduler
                 Email.getMailCredentials();
                 Log("Obtive as credenciais");
                 List<string> allowedContacts = teste.Select(contact => contact.mail).ToList();
-                var emails = Email.ListEmailTitlesAndSenders(allowedContacts);
+                var emails = Email.ListPopEmailTitlesAndSenders(allowedContacts);
                 Log("Listei " + emails.Count);
                 List<Task> emailTasks = new List<Task>();
 
@@ -393,8 +393,11 @@ Este robô envia relatórios e alertas de forma autônoma. Por favor, não nos r
         }
         private void InsertInOrder(string item)
         {
+            
             lsbSchedule.Invoke((Action)delegate
+            
             {
+                try { 
                 for (int i = 0; i < lsbSchedule.Items.Count; i++)
                 {
                     string currentItem = lsbSchedule.Items[i].ToString();
@@ -408,6 +411,11 @@ Este robô envia relatórios e alertas de forma autônoma. Por favor, não nos r
                 }
                 // Se não foi inserido anteriormente, adiciona ao final
                 lsbSchedule.Items.Add(item);
+                }
+                catch (Exception)
+                {
+
+                }
             });
         }
         private bool ShouldSendNow(SchedulerApp_Schedule item)

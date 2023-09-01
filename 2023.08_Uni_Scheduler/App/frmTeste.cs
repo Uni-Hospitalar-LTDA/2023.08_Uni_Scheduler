@@ -33,7 +33,7 @@ namespace _2023._08_Uni_Scheduler.App
             allowedContacts = teste.Select(contact => contact.mail).ToList();
             var emails = new List<EmailMessage>();
             emails.Clear();
-            emails = Email.ListEmailTitlesAndSenders(allowedContacts);
+            //emails = Email./*ListEmailTitlesAndSenders*/(allowedContacts);
             try
             {
                 this.Cursor = Cursors.WaitCursor;
