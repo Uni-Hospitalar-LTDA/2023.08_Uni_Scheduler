@@ -7,6 +7,7 @@ using DocumentFormat.OpenXml.Presentation;
 using DocumentFormat.OpenXml.Spreadsheet;
 using iText.Kernel.Colors;
 using Microsoft.Office.Core;
+using Org.BouncyCastle.Asn1;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -41,11 +42,10 @@ namespace _2023._08_Uni_Scheduler
             //Control properties
             ConfigureLabelProperties();
             ConfigureProgressbarProperties();
-            ConfigureButtonProperties();
             ConfigureTextBoxProperties();
             ConfigureTimerProperties();
             ConfigureButtonProperties();
-
+            ConfigurePictureBoxProperties();
 
             //Form Events 
             ConfigureFormEvents();
@@ -515,6 +515,10 @@ Este robô envia relatórios e alertas de forma autônoma. Por favor, não nos r
             ConfigureListBoxEvents();
         }
 
+        private void ConfigurePictureBoxProperties()
+        {
+            pcbRobot.Image = Properties.Resources.giphy;
+        }
         /** ListBox **/
         private void ConfigureListBoxEvents()
         {
@@ -606,6 +610,63 @@ Este robô envia relatórios e alertas de forma autônoma. Por favor, não nos r
             btnScheduledMail_Stop.FillColor = Color.LightCoral;
             btnScheduledMail_Stop.Cursor = Cursors.Hand;
             btnScheduledMail_Stop.Animated = true;
+
+            //Main Buttons
+
+            //Normal state BtnSchedules
+            btnSchedules.FillColor = Color.DarkGray;
+            btnSchedules.FillColor2 = SystemColors.ActiveCaption;
+            btnSchedules.Cursor = Cursors.Hand;
+            //Normal state BtnContacts
+            btnContacts.FillColor = Color.DarkGray;
+            btnContacts.FillColor2 = SystemColors.ActiveCaption;
+            btnContacts.Cursor = Cursors.Hand;
+            //Normal state Connections
+            btnConnections.FillColor = Color.DarkGray;
+            btnConnections.FillColor2 = SystemColors.ActiveCaption;
+            btnConnections.Cursor = Cursors.Hand;
+            //Normal state BtnReports
+            btnReports.FillColor = Color.DarkGray;
+            btnReports.FillColor2 = SystemColors.ActiveCaption;
+            btnReports.Cursor = Cursors.Hand;
+            //Normal state BtnQuerys
+            btnQuerys.FillColor = Color.DarkGray;
+            btnQuerys.FillColor2 = SystemColors.ActiveCaption;
+            btnQuerys.Cursor = Cursors.Hand;
+            //Normal state btnGeneretor
+            btnGenerator.FillColor = Color.DarkGray;
+            btnGenerator.FillColor2 = SystemColors.ActiveCaption;
+            btnGenerator.Cursor = Cursors.Hand;
+
+
+            //Hover State BtnSchedules ---------------------------------------
+            btnSchedules.HoverState.FillColor = Color.FromArgb(94, 148, 255);
+            btnSchedules.HoverState.FillColor2 = Color.FromArgb(255, 77, 165);
+            //Hover State Contacts
+            btnContacts.HoverState.FillColor = Color.FromArgb(94, 148, 255);
+            btnContacts.HoverState.FillColor2 = Color.FromArgb(255, 77, 165);
+            //Hover State Connections
+            btnConnections.HoverState.FillColor = Color.FromArgb(94, 148, 255);
+            btnConnections.HoverState.FillColor2 = Color.FromArgb(255, 77, 165);
+            //Hover State Reports
+            btnReports.HoverState.FillColor = Color.FromArgb(94, 148, 255);
+            btnReports.HoverState.FillColor2 = Color.FromArgb(255, 77, 165);
+            //Hover State Querys
+            btnQuerys.HoverState.FillColor = Color.FromArgb(94, 148, 255);
+            btnQuerys.HoverState.FillColor2 = Color.FromArgb(255, 77, 165);
+            //Hover state Generator
+            btnGenerator.HoverState.FillColor = Color.FromArgb(94, 148, 255);
+            btnGenerator.HoverState.FillColor2 = Color.FromArgb(255, 77, 165);
+
+            //Export logs and Exit
+            btnLogs.FillColor = Color.DarkGray;
+            btnLogs.FillColor2 = SystemColors.ActiveCaption;
+            btnLogs.Cursor = Cursors.Hand;
+
+            btnExit.FillColor = SystemColors.ActiveCaption;
+            btnExit.FillColor2 = Color.Firebrick;
+            btnExit.Cursor = Cursors.Hand;
+
         }
         private void ConfigureButtonEvents()
         {
@@ -703,9 +764,7 @@ Este robô envia relatórios e alertas de forma autônoma. Por favor, não nos r
         {
 
         }
-
-    
-
+  
         private void pictureBox1_Click(object sender, EventArgs e)
         {
 

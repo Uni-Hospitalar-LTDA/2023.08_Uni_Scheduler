@@ -40,17 +40,17 @@
             this.btnScheduledMail_Play = new Guna.UI2.WinForms.Guna2Button();
             this.btnScheduledMail_Stop = new Guna.UI2.WinForms.Guna2Button();
             this.pcbScheduledMail = new Guna.UI2.WinForms.Guna2ProgressBar();
-            this.btnContacts = new Guna.UI2.WinForms.Guna2Button();
-            this.btnReports = new Guna.UI2.WinForms.Guna2Button();
-            this.btnConnections = new Guna.UI2.WinForms.Guna2Button();
-            this.btnQuerys = new Guna.UI2.WinForms.Guna2Button();
-            this.btnGenerator = new Guna.UI2.WinForms.Guna2Button();
-            this.btnSchedules = new Guna.UI2.WinForms.Guna2Button();
-            this.btnExit = new Guna.UI2.WinForms.Guna2Button();
-            this.btnLogs = new Guna.UI2.WinForms.Guna2Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pcbRobot = new System.Windows.Forms.PictureBox();
             this.txtHour = new Guna.UI2.WinForms.Guna2TextBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.btnConnections = new Guna.UI2.WinForms.Guna2GradientButton();
+            this.btnSchedules = new Guna.UI2.WinForms.Guna2GradientButton();
+            this.btnContacts = new Guna.UI2.WinForms.Guna2GradientButton();
+            this.btnReports = new Guna.UI2.WinForms.Guna2GradientButton();
+            this.btnQuerys = new Guna.UI2.WinForms.Guna2GradientButton();
+            this.btnGenerator = new Guna.UI2.WinForms.Guna2GradientButton();
+            this.btnLogs = new Guna.UI2.WinForms.Guna2GradientButton();
+            this.btnExit = new Guna.UI2.WinForms.Guna2GradientButton();
+            ((System.ComponentModel.ISupportInitialize)(this.pcbRobot)).BeginInit();
             this.SuspendLayout();
             // 
             // lblApplicationName
@@ -192,171 +192,16 @@
             this.pcbScheduledMail.TabIndex = 31;
             this.pcbScheduledMail.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SystemDefault;
             // 
-            // btnContacts
+            // pcbRobot
             // 
-            this.btnContacts.Animated = true;
-            this.btnContacts.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnContacts.BorderColor = System.Drawing.SystemColors.ActiveCaption;
-            this.btnContacts.BorderRadius = 2;
-            this.btnContacts.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnContacts.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnContacts.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnContacts.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnContacts.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnContacts.FillColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnContacts.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btnContacts.ForeColor = System.Drawing.Color.Black;
-            this.btnContacts.HoverState.FillColor = System.Drawing.Color.Black;
-            this.btnContacts.HoverState.ForeColor = System.Drawing.Color.White;
-            this.btnContacts.Location = new System.Drawing.Point(133, 139);
-            this.btnContacts.Name = "btnContacts";
-            this.btnContacts.Size = new System.Drawing.Size(119, 40);
-            this.btnContacts.TabIndex = 32;
-            this.btnContacts.Text = "Contatos";
-            // 
-            // btnReports
-            // 
-            this.btnReports.Animated = true;
-            this.btnReports.BorderRadius = 2;
-            this.btnReports.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnReports.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnReports.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnReports.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnReports.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnReports.FillColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnReports.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btnReports.ForeColor = System.Drawing.Color.Black;
-            this.btnReports.HoverState.FillColor = System.Drawing.Color.Black;
-            this.btnReports.HoverState.ForeColor = System.Drawing.Color.White;
-            this.btnReports.Location = new System.Drawing.Point(263, 139);
-            this.btnReports.Name = "btnReports";
-            this.btnReports.Size = new System.Drawing.Size(119, 40);
-            this.btnReports.TabIndex = 34;
-            this.btnReports.Text = "Relatórios";
-            // 
-            // btnConnections
-            // 
-            this.btnConnections.Animated = true;
-            this.btnConnections.BorderRadius = 2;
-            this.btnConnections.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnConnections.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnConnections.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnConnections.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnConnections.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnConnections.FillColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnConnections.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btnConnections.ForeColor = System.Drawing.Color.Black;
-            this.btnConnections.HoverState.FillColor = System.Drawing.Color.Black;
-            this.btnConnections.HoverState.ForeColor = System.Drawing.Color.White;
-            this.btnConnections.Location = new System.Drawing.Point(388, 139);
-            this.btnConnections.Name = "btnConnections";
-            this.btnConnections.Size = new System.Drawing.Size(119, 40);
-            this.btnConnections.TabIndex = 35;
-            this.btnConnections.Text = "Conexões";
-            // 
-            // btnQuerys
-            // 
-            this.btnQuerys.Animated = true;
-            this.btnQuerys.BorderRadius = 2;
-            this.btnQuerys.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnQuerys.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnQuerys.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnQuerys.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnQuerys.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnQuerys.FillColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnQuerys.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btnQuerys.ForeColor = System.Drawing.Color.Black;
-            this.btnQuerys.HoverState.FillColor = System.Drawing.Color.Black;
-            this.btnQuerys.HoverState.ForeColor = System.Drawing.Color.White;
-            this.btnQuerys.Location = new System.Drawing.Point(513, 139);
-            this.btnQuerys.Name = "btnQuerys";
-            this.btnQuerys.Size = new System.Drawing.Size(119, 40);
-            this.btnQuerys.TabIndex = 36;
-            this.btnQuerys.Text = "Querys";
-            // 
-            // btnGenerator
-            // 
-            this.btnGenerator.Animated = true;
-            this.btnGenerator.BorderRadius = 2;
-            this.btnGenerator.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnGenerator.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnGenerator.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnGenerator.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnGenerator.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnGenerator.FillColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnGenerator.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btnGenerator.ForeColor = System.Drawing.Color.Black;
-            this.btnGenerator.HoverState.FillColor = System.Drawing.Color.Black;
-            this.btnGenerator.HoverState.ForeColor = System.Drawing.Color.White;
-            this.btnGenerator.Location = new System.Drawing.Point(638, 139);
-            this.btnGenerator.Name = "btnGenerator";
-            this.btnGenerator.Size = new System.Drawing.Size(119, 40);
-            this.btnGenerator.TabIndex = 37;
-            this.btnGenerator.Text = "Gerador";
-            // 
-            // btnSchedules
-            // 
-            this.btnSchedules.Animated = true;
-            this.btnSchedules.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnSchedules.BorderRadius = 2;
-            this.btnSchedules.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnSchedules.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnSchedules.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnSchedules.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnSchedules.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnSchedules.FillColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnSchedules.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btnSchedules.ForeColor = System.Drawing.Color.Black;
-            this.btnSchedules.HoverState.FillColor = System.Drawing.Color.Black;
-            this.btnSchedules.HoverState.ForeColor = System.Drawing.Color.White;
-            this.btnSchedules.Location = new System.Drawing.Point(13, 139);
-            this.btnSchedules.Name = "btnSchedules";
-            this.btnSchedules.Size = new System.Drawing.Size(119, 40);
-            this.btnSchedules.TabIndex = 39;
-            this.btnSchedules.Text = "Agendas";
-            // 
-            // btnExit
-            // 
-            this.btnExit.BorderRadius = 5;
-            this.btnExit.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnExit.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnExit.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnExit.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnExit.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.btnExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.btnExit.ForeColor = System.Drawing.Color.White;
-            this.btnExit.Location = new System.Drawing.Point(1075, 474);
-            this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(75, 22);
-            this.btnExit.TabIndex = 41;
-            this.btnExit.Text = "Sair";
-            // 
-            // btnLogs
-            // 
-            this.btnLogs.BorderRadius = 5;
-            this.btnLogs.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnLogs.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnLogs.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnLogs.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnLogs.FillColor = System.Drawing.Color.Teal;
-            this.btnLogs.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.btnLogs.ForeColor = System.Drawing.Color.White;
-            this.btnLogs.Location = new System.Drawing.Point(12, 474);
-            this.btnLogs.Name = "btnLogs";
-            this.btnLogs.Size = new System.Drawing.Size(97, 22);
-            this.btnLogs.TabIndex = 42;
-            this.btnLogs.Text = "Exportar Logs";
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::_2023._08_Uni_Scheduler.Properties.Resources.giphy;
-            this.pictureBox1.Location = new System.Drawing.Point(918, 235);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(221, 204);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 40;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
+            this.pcbRobot.Image = global::_2023._08_Uni_Scheduler.Properties.Resources.giphy;
+            this.pcbRobot.Location = new System.Drawing.Point(918, 235);
+            this.pcbRobot.Name = "pcbRobot";
+            this.pcbRobot.Size = new System.Drawing.Size(221, 204);
+            this.pcbRobot.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pcbRobot.TabIndex = 40;
+            this.pcbRobot.TabStop = false;
+            this.pcbRobot.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // txtHour
             // 
@@ -381,20 +226,183 @@
             this.txtHour.Size = new System.Drawing.Size(244, 41);
             this.txtHour.TabIndex = 26;
             // 
+            // btnConnections
+            // 
+            this.btnConnections.Animated = true;
+            this.btnConnections.BorderRadius = 3;
+            this.btnConnections.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnConnections.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnConnections.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnConnections.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnConnections.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnConnections.FillColor = System.Drawing.Color.DarkGray;
+            this.btnConnections.FillColor2 = System.Drawing.SystemColors.ActiveCaption;
+            this.btnConnections.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnConnections.ForeColor = System.Drawing.Color.White;
+            this.btnConnections.HoverState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.btnConnections.HoverState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(77)))), ((int)(((byte)(165)))));
+            this.btnConnections.Location = new System.Drawing.Point(263, 139);
+            this.btnConnections.Name = "btnConnections";
+            this.btnConnections.Size = new System.Drawing.Size(119, 40);
+            this.btnConnections.TabIndex = 43;
+            this.btnConnections.Text = "Conexões";
+            // 
+            // btnSchedules
+            // 
+            this.btnSchedules.Animated = true;
+            this.btnSchedules.BorderRadius = 3;
+            this.btnSchedules.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnSchedules.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnSchedules.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnSchedules.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnSchedules.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnSchedules.FillColor = System.Drawing.Color.DarkGray;
+            this.btnSchedules.FillColor2 = System.Drawing.SystemColors.ActiveCaption;
+            this.btnSchedules.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnSchedules.ForeColor = System.Drawing.Color.White;
+            this.btnSchedules.HoverState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.btnSchedules.HoverState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(77)))), ((int)(((byte)(165)))));
+            this.btnSchedules.Location = new System.Drawing.Point(13, 139);
+            this.btnSchedules.Name = "btnSchedules";
+            this.btnSchedules.Size = new System.Drawing.Size(119, 40);
+            this.btnSchedules.TabIndex = 44;
+            this.btnSchedules.Text = "Agendas";
+            // 
+            // btnContacts
+            // 
+            this.btnContacts.Animated = true;
+            this.btnContacts.BorderRadius = 3;
+            this.btnContacts.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnContacts.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnContacts.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnContacts.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnContacts.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnContacts.FillColor = System.Drawing.Color.DarkGray;
+            this.btnContacts.FillColor2 = System.Drawing.SystemColors.ActiveCaption;
+            this.btnContacts.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnContacts.ForeColor = System.Drawing.Color.White;
+            this.btnContacts.HoverState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.btnContacts.HoverState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(77)))), ((int)(((byte)(165)))));
+            this.btnContacts.Location = new System.Drawing.Point(138, 139);
+            this.btnContacts.Name = "btnContacts";
+            this.btnContacts.Size = new System.Drawing.Size(119, 40);
+            this.btnContacts.TabIndex = 45;
+            this.btnContacts.Text = "Contatos";
+            // 
+            // btnReports
+            // 
+            this.btnReports.Animated = true;
+            this.btnReports.BorderRadius = 3;
+            this.btnReports.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnReports.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnReports.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnReports.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnReports.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnReports.FillColor = System.Drawing.Color.DarkGray;
+            this.btnReports.FillColor2 = System.Drawing.SystemColors.ActiveCaption;
+            this.btnReports.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnReports.ForeColor = System.Drawing.Color.White;
+            this.btnReports.HoverState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.btnReports.HoverState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(77)))), ((int)(((byte)(165)))));
+            this.btnReports.Location = new System.Drawing.Point(388, 139);
+            this.btnReports.Name = "btnReports";
+            this.btnReports.Size = new System.Drawing.Size(119, 40);
+            this.btnReports.TabIndex = 46;
+            this.btnReports.Text = "Relatórios";
+            // 
+            // btnQuerys
+            // 
+            this.btnQuerys.Animated = true;
+            this.btnQuerys.BorderRadius = 3;
+            this.btnQuerys.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnQuerys.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnQuerys.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnQuerys.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnQuerys.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnQuerys.FillColor = System.Drawing.Color.DarkGray;
+            this.btnQuerys.FillColor2 = System.Drawing.SystemColors.ActiveCaption;
+            this.btnQuerys.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnQuerys.ForeColor = System.Drawing.Color.White;
+            this.btnQuerys.HoverState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.btnQuerys.HoverState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(77)))), ((int)(((byte)(165)))));
+            this.btnQuerys.Location = new System.Drawing.Point(513, 139);
+            this.btnQuerys.Name = "btnQuerys";
+            this.btnQuerys.Size = new System.Drawing.Size(119, 40);
+            this.btnQuerys.TabIndex = 47;
+            this.btnQuerys.Text = "Querys";
+            // 
+            // btnGenerator
+            // 
+            this.btnGenerator.Animated = true;
+            this.btnGenerator.BorderRadius = 3;
+            this.btnGenerator.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnGenerator.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnGenerator.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnGenerator.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnGenerator.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnGenerator.FillColor = System.Drawing.Color.DarkGray;
+            this.btnGenerator.FillColor2 = System.Drawing.SystemColors.ActiveCaption;
+            this.btnGenerator.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnGenerator.ForeColor = System.Drawing.Color.White;
+            this.btnGenerator.HoverState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.btnGenerator.HoverState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(77)))), ((int)(((byte)(165)))));
+            this.btnGenerator.Location = new System.Drawing.Point(638, 139);
+            this.btnGenerator.Name = "btnGenerator";
+            this.btnGenerator.Size = new System.Drawing.Size(119, 40);
+            this.btnGenerator.TabIndex = 48;
+            this.btnGenerator.Text = "Gerador";
+            // 
+            // btnLogs
+            // 
+            this.btnLogs.Animated = true;
+            this.btnLogs.BorderRadius = 5;
+            this.btnLogs.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnLogs.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnLogs.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnLogs.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnLogs.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnLogs.FillColor = System.Drawing.Color.DarkGray;
+            this.btnLogs.FillColor2 = System.Drawing.SystemColors.ActiveCaption;
+            this.btnLogs.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLogs.ForeColor = System.Drawing.Color.White;
+            this.btnLogs.Location = new System.Drawing.Point(13, 474);
+            this.btnLogs.Name = "btnLogs";
+            this.btnLogs.Size = new System.Drawing.Size(97, 22);
+            this.btnLogs.TabIndex = 49;
+            this.btnLogs.Text = "Exportar Logs";
+            // 
+            // btnExit
+            // 
+            this.btnExit.BorderRadius = 5;
+            this.btnExit.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnExit.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnExit.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnExit.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnExit.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnExit.FillColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnExit.FillColor2 = System.Drawing.Color.Firebrick;
+            this.btnExit.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnExit.ForeColor = System.Drawing.Color.White;
+            this.btnExit.Location = new System.Drawing.Point(1075, 474);
+            this.btnExit.Name = "btnExit";
+            this.btnExit.Size = new System.Drawing.Size(75, 22);
+            this.btnExit.TabIndex = 50;
+            this.btnExit.Text = "Sair";
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1162, 504);
-            this.Controls.Add(this.btnLogs);
             this.Controls.Add(this.btnExit);
-            this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.btnSchedules);
+            this.Controls.Add(this.btnLogs);
             this.Controls.Add(this.btnGenerator);
             this.Controls.Add(this.btnQuerys);
-            this.Controls.Add(this.btnConnections);
             this.Controls.Add(this.btnReports);
             this.Controls.Add(this.btnContacts);
+            this.Controls.Add(this.btnSchedules);
+            this.Controls.Add(this.btnConnections);
+            this.Controls.Add(this.pcbRobot);
             this.Controls.Add(this.pcbScheduledMail);
             this.Controls.Add(this.btnScheduledMail_Stop);
             this.Controls.Add(this.btnScheduledMail_Play);
@@ -410,7 +418,7 @@
             this.Controls.Add(this.lblApplicationName);
             this.Name = "frmMain";
             this.Text = "Atenas Data Bot";
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pcbRobot)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -431,15 +439,15 @@
         private Guna.UI2.WinForms.Guna2Button btnScheduledMail_Play;
         private Guna.UI2.WinForms.Guna2Button btnScheduledMail_Stop;
         private Guna.UI2.WinForms.Guna2ProgressBar pcbScheduledMail;
-        private Guna.UI2.WinForms.Guna2Button btnContacts;
-        private Guna.UI2.WinForms.Guna2Button btnReports;
-        private Guna.UI2.WinForms.Guna2Button btnConnections;
-        private Guna.UI2.WinForms.Guna2Button btnQuerys;
-        private Guna.UI2.WinForms.Guna2Button btnGenerator;
-        private Guna.UI2.WinForms.Guna2Button btnSchedules;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private Guna.UI2.WinForms.Guna2Button btnExit;
-        private Guna.UI2.WinForms.Guna2Button btnLogs;
+        private System.Windows.Forms.PictureBox pcbRobot;
+        private Guna.UI2.WinForms.Guna2GradientButton btnConnections;
+        private Guna.UI2.WinForms.Guna2GradientButton btnSchedules;
+        private Guna.UI2.WinForms.Guna2GradientButton btnContacts;
+        private Guna.UI2.WinForms.Guna2GradientButton btnReports;
+        private Guna.UI2.WinForms.Guna2GradientButton btnQuerys;
+        private Guna.UI2.WinForms.Guna2GradientButton btnGenerator;
+        private Guna.UI2.WinForms.Guna2GradientButton btnLogs;
+        private Guna.UI2.WinForms.Guna2GradientButton btnExit;
     }
 }
 
