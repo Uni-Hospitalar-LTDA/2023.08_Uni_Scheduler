@@ -643,7 +643,6 @@ Este robô envia relatórios e alertas de forma autônoma. Por favor, não nos r
             btnScheduledMail_Stop.Animated = true;
 
 
-
             //Main Buttons ---------------------------------------------------
 
             //Normal state BtnSchedules

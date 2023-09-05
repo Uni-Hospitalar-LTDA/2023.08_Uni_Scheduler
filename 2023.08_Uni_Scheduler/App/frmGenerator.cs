@@ -127,9 +127,9 @@ namespace _2023._08_Uni_Scheduler.App
         {
             if (false)
             {
-                rtxtQuery.Text = "SELECT TOP 100 * FROM DMD.dbo.CLIEN";
-                txtEmailTitle.Text = "Teste de Envio novo Atenas";                
-                txtTo.Text = "rafael.silva@unihospitalar.com.br,ricardo.santos@unihospitalar.com.br";
+              //// rtxtQuery.Text = "SELECT TOP 100 * FROM DMD.dbo.CLIEN";
+              //  txtEmailTitle.Text = "Teste de Envio novo Atenas";                
+              //  txtTo.Text = "rafael.silva@unihospitalar.com.br,ricardo.santos@unihospitalar.com.br";
             }
 
             
