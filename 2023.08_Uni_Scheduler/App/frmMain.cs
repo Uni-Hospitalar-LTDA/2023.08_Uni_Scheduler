@@ -592,26 +592,56 @@ Este robô envia relatórios e alertas de forma autônoma. Por favor, não nos r
         /** Button Configuration **/
         private void ConfigureButtonProperties()
         {
-            //Play button
-            btnEmailAnalysis_Play.FillColor = Color.FromArgb(92, 184, 92);
+            //Normal Satate -----------------------------------------------------
+            
+            //Play buttonHoverState
+            btnEmailAnalysis_Play.FillColor = SystemColors.ActiveCaption;
             btnEmailAnalysis_Play.Cursor = Cursors.Hand;
             btnEmailAnalysis_Play.Animated = true;
-            //Stop Button
-            btnEmailAnalysis_Stop.FillColor = Color.LightCoral;
+            //Stop ButtonHoverState  
+            btnEmailAnalysis_Stop.FillColor = SystemColors.ActiveCaption;
             btnEmailAnalysis_Stop.Cursor = Cursors.Hand;
             btnEmailAnalysis_Stop.Animated = true;
 
+            //Hover state -----------------------------------------------------
+            
+            //Play buttonHoverState
+            btnEmailAnalysis_Play.HoverState.FillColor = Color.FromArgb(92, 184, 92);
+            btnEmailAnalysis_Play.Cursor = Cursors.Hand;
+            btnEmailAnalysis_Play.Animated = true;
+            //Stop ButtonHoverState.
+            btnEmailAnalysis_Stop.HoverState.FillColor = Color.LightCoral;
+            btnEmailAnalysis_Stop.Cursor = Cursors.Hand;
+            btnEmailAnalysis_Stop.Animated = true;
+
+
+            //Hover State ----------------------------------------------------
+
             // Schedule Play Button
-            btnScheduledMail_Play.FillColor = Color.FromArgb(92, 184, 92);
+            btnScheduledMail_Play.HoverState. FillColor = Color.FromArgb(92, 184, 92);
             btnScheduledMail_Play.Cursor = Cursors.Hand;
             btnScheduledMail_Play.Animated = true;
 
             // Schedule Stop Button
-            btnScheduledMail_Stop.FillColor = Color.LightCoral;
+            btnScheduledMail_Stop.HoverState.FillColor = Color.LightCoral;
             btnScheduledMail_Stop.Cursor = Cursors.Hand;
             btnScheduledMail_Stop.Animated = true;
 
-            //Main Buttons
+            //Normal State --------------------------------------------------
+            
+            // Schedule Play Button
+            btnScheduledMail_Play.FillColor = SystemColors.ActiveCaption;
+            btnScheduledMail_Play.Cursor = Cursors.Hand;
+            btnScheduledMail_Play.Animated = true;
+
+            // Schedule Stop Button
+            btnScheduledMail_Stop.FillColor = SystemColors.ActiveCaption;
+            btnScheduledMail_Stop.Cursor = Cursors.Hand;
+            btnScheduledMail_Stop.Animated = true;
+
+
+
+            //Main Buttons ---------------------------------------------------
 
             //Normal state BtnSchedules
             btnSchedules.FillColor = Color.DarkGray;
@@ -658,13 +688,18 @@ Este robô envia relatórios e alertas de forma autônoma. Por favor, não nos r
             btnGenerator.HoverState.FillColor = Color.FromArgb(94, 148, 255);
             btnGenerator.HoverState.FillColor2 = Color.FromArgb(255, 77, 165);
 
-            //Export logs and Exit
+            //Export logs and Exit ---------------------------------------------
             btnLogs.FillColor = Color.DarkGray;
             btnLogs.FillColor2 = SystemColors.ActiveCaption;
             btnLogs.Cursor = Cursors.Hand;
 
             btnExit.FillColor = SystemColors.ActiveCaption;
-            btnExit.FillColor2 = Color.Firebrick;
+            btnExit.FillColor2 = Color.DarkGray;
+            btnExit.Cursor = Cursors.Hand;
+
+            //Hover State exit -------------------------------------------------
+            btnExit.FillColor = SystemColors.ActiveCaption;
+            btnExit.HoverState.FillColor2 = Color.Firebrick;
             btnExit.Cursor = Cursors.Hand;
 
         }

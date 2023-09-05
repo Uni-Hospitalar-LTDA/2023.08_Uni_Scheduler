@@ -124,7 +124,7 @@
             this.btnEmailAnalysis_Play.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btnEmailAnalysis_Play.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.btnEmailAnalysis_Play.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnEmailAnalysis_Play.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(184)))), ((int)(((byte)(92)))));
+            this.btnEmailAnalysis_Play.FillColor = System.Drawing.SystemColors.ActiveCaption;
             this.btnEmailAnalysis_Play.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnEmailAnalysis_Play.ForeColor = System.Drawing.Color.White;
             this.btnEmailAnalysis_Play.Location = new System.Drawing.Point(580, 77);
@@ -140,7 +140,7 @@
             this.btnEmailAnalysis_Stop.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btnEmailAnalysis_Stop.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.btnEmailAnalysis_Stop.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnEmailAnalysis_Stop.FillColor = System.Drawing.Color.LightCoral;
+            this.btnEmailAnalysis_Stop.FillColor = System.Drawing.SystemColors.ActiveCaption;
             this.btnEmailAnalysis_Stop.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnEmailAnalysis_Stop.ForeColor = System.Drawing.Color.White;
             this.btnEmailAnalysis_Stop.Location = new System.Drawing.Point(638, 77);
@@ -156,7 +156,7 @@
             this.btnScheduledMail_Play.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btnScheduledMail_Play.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.btnScheduledMail_Play.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnScheduledMail_Play.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(184)))), ((int)(((byte)(92)))));
+            this.btnScheduledMail_Play.FillColor = System.Drawing.SystemColors.ActiveCaption;
             this.btnScheduledMail_Play.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnScheduledMail_Play.ForeColor = System.Drawing.Color.White;
             this.btnScheduledMail_Play.Location = new System.Drawing.Point(80, 77);
@@ -172,7 +172,7 @@
             this.btnScheduledMail_Stop.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btnScheduledMail_Stop.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.btnScheduledMail_Stop.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnScheduledMail_Stop.FillColor = System.Drawing.Color.LightCoral;
+            this.btnScheduledMail_Stop.FillColor = System.Drawing.SystemColors.ActiveCaption;
             this.btnScheduledMail_Stop.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.btnScheduledMail_Stop.ForeColor = System.Drawing.Color.White;
             this.btnScheduledMail_Stop.Location = new System.Drawing.Point(138, 77);
@@ -257,7 +257,7 @@
             this.btnSchedules.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.btnSchedules.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.btnSchedules.FillColor = System.Drawing.Color.DarkGray;
-            this.btnSchedules.FillColor2 = System.Drawing.SystemColors.ActiveCaption;
+            this.btnSchedules.FillColor2 = System.Drawing.SystemColors.ActiveBorder;
             this.btnSchedules.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnSchedules.ForeColor = System.Drawing.Color.White;
             this.btnSchedules.HoverState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
@@ -380,7 +380,7 @@
             this.btnExit.DisabledState.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.btnExit.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.btnExit.FillColor = System.Drawing.SystemColors.ActiveCaption;
-            this.btnExit.FillColor2 = System.Drawing.Color.Firebrick;
+            this.btnExit.FillColor2 = System.Drawing.Color.DarkGray;
             this.btnExit.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnExit.ForeColor = System.Drawing.Color.White;
             this.btnExit.Location = new System.Drawing.Point(1075, 474);
