@@ -598,6 +598,7 @@ Este robô envia relatórios e alertas de forma autônoma. Por favor, não nos r
             btnEmailAnalysis_Play.FillColor = SystemColors.ActiveCaption;
             btnEmailAnalysis_Play.Cursor = Cursors.Hand;
             btnEmailAnalysis_Play.Animated = true;
+            
             //Stop ButtonHoverState  
             btnEmailAnalysis_Stop.FillColor = SystemColors.ActiveCaption;
             btnEmailAnalysis_Stop.Cursor = Cursors.Hand;
@@ -609,7 +610,9 @@ Este robô envia relatórios e alertas de forma autônoma. Por favor, não nos r
             btnEmailAnalysis_Play.HoverState.FillColor = Color.FromArgb(92, 184, 92);
             btnEmailAnalysis_Play.Cursor = Cursors.Hand;
             btnEmailAnalysis_Play.Animated = true;
-            //Stop ButtonHoverState.
+           
+            
+            //Stop ButtonHoverState
             btnEmailAnalysis_Stop.HoverState.FillColor = Color.LightCoral;
             btnEmailAnalysis_Stop.Cursor = Cursors.Hand;
             btnEmailAnalysis_Stop.Animated = true;
@@ -647,26 +650,32 @@ Este robô envia relatórios e alertas de forma autônoma. Por favor, não nos r
             btnSchedules.FillColor = Color.DarkGray;
             btnSchedules.FillColor2 = SystemColors.ActiveCaption;
             btnSchedules.Cursor = Cursors.Hand;
+            btnSchedules.HoverState.ForeColor = Color.Black;
             //Normal state BtnContacts
             btnContacts.FillColor = Color.DarkGray;
             btnContacts.FillColor2 = SystemColors.ActiveCaption;
             btnContacts.Cursor = Cursors.Hand;
+            btnContacts.HoverState.ForeColor = Color.Black;
             //Normal state Connections
             btnConnections.FillColor = Color.DarkGray;
             btnConnections.FillColor2 = SystemColors.ActiveCaption;
             btnConnections.Cursor = Cursors.Hand;
+            btnConnections.HoverState.ForeColor = Color.Black;
             //Normal state BtnReports
             btnReports.FillColor = Color.DarkGray;
             btnReports.FillColor2 = SystemColors.ActiveCaption;
             btnReports.Cursor = Cursors.Hand;
+            btnReports.HoverState.ForeColor = Color.Black;
             //Normal state BtnQuerys
             btnQuerys.FillColor = Color.DarkGray;
             btnQuerys.FillColor2 = SystemColors.ActiveCaption;
             btnQuerys.Cursor = Cursors.Hand;
+            btnQuerys.HoverState.ForeColor = Color.Black;
             //Normal state btnGeneretor
             btnGenerator.FillColor = Color.DarkGray;
             btnGenerator.FillColor2 = SystemColors.ActiveCaption;
             btnGenerator.Cursor = Cursors.Hand;
+            btnGenerator.HoverState.ForeColor = Color.Black;
 
 
             //Hover State BtnSchedules ---------------------------------------
