@@ -50,6 +50,7 @@
             this.btnGenerator = new Guna.UI2.WinForms.Guna2GradientButton();
             this.btnLogs = new Guna.UI2.WinForms.Guna2GradientButton();
             this.btnExit = new Guna.UI2.WinForms.Guna2GradientButton();
+            this.Alert = new Guna.UI2.WinForms.Guna2MessageDialog();
             ((System.ComponentModel.ISupportInitialize)(this.pcbRobot)).BeginInit();
             this.SuspendLayout();
             // 
@@ -195,9 +196,9 @@
             // pcbRobot
             // 
             this.pcbRobot.Image = global::_2023._08_Uni_Scheduler.Properties.Resources.giphy;
-            this.pcbRobot.Location = new System.Drawing.Point(918, 235);
+            this.pcbRobot.Location = new System.Drawing.Point(916, 230);
             this.pcbRobot.Name = "pcbRobot";
-            this.pcbRobot.Size = new System.Drawing.Size(221, 204);
+            this.pcbRobot.Size = new System.Drawing.Size(221, 221);
             this.pcbRobot.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pcbRobot.TabIndex = 40;
             this.pcbRobot.TabStop = false;
@@ -389,6 +390,15 @@
             this.btnExit.TabIndex = 50;
             this.btnExit.Text = "Sair";
             // 
+            // Alert
+            // 
+            this.Alert.Buttons = Guna.UI2.WinForms.MessageDialogButtons.OK;
+            this.Alert.Caption = null;
+            this.Alert.Icon = Guna.UI2.WinForms.MessageDialogIcon.None;
+            this.Alert.Parent = null;
+            this.Alert.Style = Guna.UI2.WinForms.MessageDialogStyle.Default;
+            this.Alert.Text = null;
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -448,6 +458,7 @@
         private Guna.UI2.WinForms.Guna2GradientButton btnGenerator;
         private Guna.UI2.WinForms.Guna2GradientButton btnLogs;
         private Guna.UI2.WinForms.Guna2GradientButton btnExit;
+        private Guna.UI2.WinForms.Guna2MessageDialog Alert;
     }
 }
 

@@ -5,6 +5,7 @@ using _2023._08_Uni_Scheduler.Domain.Entities.Email;
 using DocumentFormat.OpenXml.Drawing;
 using DocumentFormat.OpenXml.Presentation;
 using DocumentFormat.OpenXml.Spreadsheet;
+using Guna.UI2.WinForms;
 using iText.Kernel.Colors;
 using Microsoft.Office.Core;
 using Org.BouncyCastle.Asn1;
@@ -492,12 +493,24 @@ Este robô envia relatórios e alertas de forma autônoma. Por favor, não nos r
         /** Form Configuration **/
         private void ConfigureFormProperties()
         {
+           
 
+            // Set the form of the system in pixels
+            this.Size = new System.Drawing.Size(1178, 543);
+
+            // Set the style of the border form
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+
+            // This disable the maximaze form
+            this.MaximizeBox = false;
+
+            // This start the form in center screen
+            this.StartPosition = FormStartPosition.CenterScreen;
         }
         private void ConfigureFormAttributes()
         {
             this.Name = "Atenas Data Bot v2.0.0";
-        }
+        }   
         private void ConfigureFormEvents()
         {
             this.Load += frmMain_Load;
@@ -592,7 +605,7 @@ Este robô envia relatórios e alertas de forma autônoma. Por favor, não nos r
         /** Button Configuration **/
         private void ConfigureButtonProperties()
         {
-            //Normal Satate -----------------------------------------------------
+            //Normal Satate ------------------------------------------------------
             
             //Play buttonHoverState
             btnEmailAnalysis_Play.FillColor = SystemColors.ActiveCaption;
@@ -710,6 +723,8 @@ Este robô envia relatórios e alertas de forma autônoma. Por favor, não nos r
             btnExit.HoverState.FillColor2 = Color.Firebrick;
             btnExit.Cursor = Cursors.Hand;
 
+            
+
         }
         private void ConfigureButtonEvents()
         {
@@ -785,7 +800,7 @@ Este robô envia relatórios e alertas de forma autônoma. Por favor, não nos r
         private void btnExit_Click(object sender, EventArgs e)
         {
             if (DialogResult.Yes == MessageBox.Show("Deseja encerrar?", "Sair da aplicação", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
-                Application.Exit();
+                Application.Exit();            
         }
         private void btnLogs_Click(object sender, EventArgs e)
         {
@@ -812,5 +827,7 @@ Este robô envia relatórios e alertas de forma autônoma. Por favor, não nos r
         {
 
         }
+
+
     }
 }

@@ -187,7 +187,7 @@ namespace _2023._08_Uni_Scheduler.App
                 chkDaysOfWeek.Checked = (string.IsNullOrEmpty(Schedule.daysofweek) == false);
                 chkSunday.Checked = (Schedule.daysofweek.Contains("1"));
                 chkMonday.Checked = (Schedule.daysofweek.Contains("2"));
-                chkThursday.Checked = (Schedule.daysofweek.Contains("3"));
+                chkTuesday.Checked = (Schedule.daysofweek.Contains("3"));
                 chkWednesday.Checked = (Schedule.daysofweek.Contains("4"));
                 chkThursday.Checked = (Schedule.daysofweek.Contains("5"));
                 chkFriday.Checked = (Schedule.daysofweek.Contains("6"));
