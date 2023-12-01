@@ -14,6 +14,8 @@ namespace _2023._08_Uni_Scheduler.Domain.Entities
         public string titleReport { get; set; }
         public string query { get; set; }
         public string format { get; set; }        
+        public bool withSheet { get; set; } 
         public DataTable data { get; set; }
+
     }
 }

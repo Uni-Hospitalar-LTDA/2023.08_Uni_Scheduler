@@ -171,7 +171,7 @@ namespace _2023._08_Uni_Scheduler.Domain.Entities.Email
                     if (withSheet)
                     {
                         var groupedAttachments = additionalAttachments
-                            .Where(a => a.format.Contains("E"))
+                            .Where(a => a.format.Contains("E")).Where(a => a.withSheet == true)
                             .GroupBy(a => a.Id);
 
                         foreach (var group in groupedAttachments)
@@ -268,110 +268,7 @@ namespace _2023._08_Uni_Scheduler.Domain.Entities.Email
             htmlBuilder.Append("</div>");
 
             return htmlBuilder.ToString();
-        }
-        public static string ConvertDataTableToHtml(DataTable dt)
-        {
-            string html = null;
-            if (dt != null)
-            {
-                html = "<table style='border: solid 1px #DDD; width: 100%;'>";
-                //add header row
-                html += "<tr style='background-color: #f2f2f2;'>";
-
-                for (int i = 0; i < dt.Columns.Count; i++)
-                    html += $"<th style='padding: 10px; border: solid 1px #DDD; color: #800020;'>{dt.Columns[i].ColumnName}</th>";
-                html += "</tr>";
-                //add rows
-                decimal total = 0m;
-                for (int i = 0; i < dt.Rows.Count; i++)
-                {
-                    html += "<tr>";
-                    for (int j = 0; j < dt.Columns.Count; j++)
-                    {
-                        object cellData = dt.Rows[i][j];
-                        if (cellData is DateTime)
-                        {
-                            html += $"<td style='padding: 10px; border: solid 1px #DDD;'>{((DateTime)cellData).ToString("dd-MM-yyyy")}</td>";
-                        }
-                        else if (cellData is decimal)
-                        {
-                            decimal cellValue = (decimal)cellData;
-                            total += cellValue;
-                            html += $"<td style='padding: 10px; border: solid 1px #DDD; text-align: right;'>{cellValue.ToString("C")}</td>";
-                        }
-                        else
-                        {
-                            html += $"<td style='padding: 10px; border: solid 1px #DDD;'>{cellData.ToString()}</td>";
-                        }
-                    }
-                    html += "</tr>";
-                }
-                //add total row
-                html += "<tr>";
-                html += $"<td colspan='{(dt.Columns.Count - 1)}' style='padding: 10px; border: solid 1px #DDD; text-align: right;'><strong>Total:</strong></td>";
-                html += $"<td style='padding: 10px; border: solid 1px #DDD; text-align: right;'><strong>{total.ToString("C")}</strong></td>";
-                html += "</tr>";
-                html += "</table>";
-            }
-            return html;
-        }
-        public static List<EmailMessage> ListImapEmailTitlesAndSenders(List<string> mailList)
-        {
-            ConcurrentBag<EmailMessage> emailMessages = new ConcurrentBag<EmailMessage>();
-
-            foreach (var credentials in _attributes)
-            {
-                try
-                {
-                    using (var client = new ImapClient())
-                    {
-                        client.Connect(credentials.imapServer, credentials.imapPort, credentials.useSsl);
-                        client.Authenticate(credentials.username, credentials.password);
-
-                        var inbox = client.Inbox;
-                        inbox.Open(MailKit.FolderAccess.ReadWrite);
-
-                        // Busque apenas as mensagens não lidas
-                        var unreadMessages = inbox.Search(SearchQuery.NotSeen);
-
-                        Console.WriteLine($"Total unread messages in {credentials.username}: {unreadMessages.Count}");
-
-                        foreach (var uid in unreadMessages)
-                        {
-                            var message = inbox.GetMessage(uid);
-                            var senderEmail = message.From.Mailboxes.FirstOrDefault()?.Address;
-
-                            if (senderEmail != null && mailList.Contains(senderEmail))
-                            {
-                                EmailMessage emailMessage = new EmailMessage
-                                {
-                                    id = message.MessageId,
-                                    subject = message.Subject,
-                                    body = message.TextBody,
-                                    from = senderEmail
-                                };
-
-                                emailMessages.Add(emailMessage);
-
-                                // Mark the message as read
-                                inbox.AddFlags(uid, MessageFlags.Seen, true);
-                            }
-                        }
-
-                        // Expunge to commit changes
-                        inbox.Expunge();
-
-                        client.Disconnect(true);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Failed to fetch emails from {credentials.username}: " + ex.Message);
-                }
-            }
-
-            return emailMessages.ToList();
-        }
+        }        
         public static List<EmailMessage> ListPopEmailTitlesAndSenders(List<string> mailList)
         {
             ConcurrentBag<EmailMessage> emailMessages = new ConcurrentBag<EmailMessage>();

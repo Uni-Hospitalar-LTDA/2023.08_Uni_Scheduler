@@ -15,6 +15,7 @@ namespace _2023._08_Uni_Scheduler.Configuration
         public CustomDefaultForm()
         {
             StartPosition = FormStartPosition.CenterScreen;
+            KeyPreview = true;
             MaximizeBox = false;            
         }
 

@@ -30,13 +30,11 @@ namespace _2023._08_Uni_Scheduler
             InitializeComponent();
 
             //Form Properties e Attributes
-            ConfigureFormProperties();
             ConfigureFormAttributes();
 
             //Control properties
             ConfigureLabelProperties();
-            ConfigureProgressbarProperties();
-            ConfigureButtonProperties();
+            ConfigureProgressbarProperties();            
             ConfigureTextBoxProperties();
             ConfigureTimerProperties();
 
@@ -100,12 +98,10 @@ namespace _2023._08_Uni_Scheduler
             }
             
         }
-
         private async Task SendIndividualEmailBySolicitationAsync(EmailMessage email)
         {
             try
             {                
-
                 string description = string.Empty;
                 string bottom_message = $@"
                     Atenciosamente,                                            
@@ -183,9 +179,7 @@ namespace _2023._08_Uni_Scheduler
 
                         if (idx != -1) lsbSchedule.Items[idx] = $"{item.description} [{item.hour.Substring(0, 5)}]";
                         existingItem.hour = item.hour;
-                    }
-
-                    // Atualizações adicionais, se necessário...
+                    }                    
                 }
             }
 
@@ -198,8 +192,12 @@ namespace _2023._08_Uni_Scheduler
                     var itemString = $"{existingItem.description} [{existingItem.hour.Substring(0, 5)}]";
                     RemoveFromQueue(existingItem.id);
                     lScheds.RemoveAt(i);
-                    lsbSchedule.Items.Remove(itemString);
 
+                    lsbSchedule.Invoke((Action)delegate
+                    {
+                        lsbSchedule.Items.Remove(itemString);
+
+                    });
                     Log($"Agendamento {existingItem.description} removido pois não está presente na lista atualizada.");
                 }
             }
@@ -306,6 +304,8 @@ Este robô envia relatórios e alertas de forma autônoma. Por favor, não nos r
                                     format = report.format
                                     ,
                                     query = query.SQLcode
+                                    
+                                    ,withSheet = withSheets
                                 });
                                 logo = conn.logo;
                                 if (t.Item2 == null)
@@ -389,6 +389,7 @@ Este robô envia relatórios e alertas de forma autônoma. Por favor, não nos r
             lsbLogs.Invoke((Action) delegate
             {
                 lsbLogs.Items.Add($"[{currentTime}] {message}");
+                lsbLogs.SelectedIndex = lsbLogs.Items.Count - 1;    
             } );
         }
         private void InsertInOrder(string item)
@@ -484,10 +485,7 @@ Este robô envia relatórios e alertas de forma autônoma. Por favor, não nos r
             isProcessing = false;
         }
         /** Form Configuration **/
-        private void ConfigureFormProperties()
-        {
-
-        }
+        
         private void ConfigureFormAttributes()
         {
             this.Name = "Atenas Data Bot v2.0.0";
@@ -496,8 +494,9 @@ Este robô envia relatórios e alertas de forma autônoma. Por favor, não nos r
         {
             this.Load += frmMain_Load;
         }
-        private void frmMain_Load(object sender, EventArgs e)
+        private async void frmMain_Load(object sender, EventArgs e)
         {
+            await Updates.CheckForUpdates();
             ConfigureTextBoxAttributes();
             ConfigureTimerAttributes();
 
@@ -507,6 +506,8 @@ Este robô envia relatórios e alertas de forma autônoma. Por favor, não nos r
             ConfigureTextBoxEvents();
             ConfigureTimerEvents();
             ConfigureListBoxEvents();
+
+            
         }
 
         /** ListBox **/
@@ -543,7 +544,7 @@ Este robô envia relatórios e alertas de forma autônoma. Por favor, não nos r
         /** Label Configuration **/
         private void ConfigureLabelProperties()
         {
-            lblApplicationName.Text = CustomApplication.name;
+            lblApplicationName.Text = "Atenas Data Bot v"+Application.ProductVersion;
         }
         private void ConfigureLabelEvents()
         {
@@ -568,11 +569,7 @@ Este robô envia relatórios e alertas de forma autônoma. Por favor, não nos r
 
         }
 
-        /** Button Configuration **/
-        private void ConfigureButtonProperties()
-        {
-
-        }
+        /** Button Configuration **/        
         private void ConfigureButtonEvents()
         {
             btnEmailAnalysis_Play.Click += btnEmailAnalysis_Play_Click;

@@ -8,6 +8,7 @@ using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -58,6 +59,7 @@ namespace _2023._08_Uni_Scheduler.App
         private void ConfigureFormEvents()
         {
             this.Load += frmSchedule_Load;
+            this.KeyDown += frmSchedule_KeyDown;
         }
 
         private async void frmSchedule_Load(object sender, EventArgs e)
@@ -74,7 +76,13 @@ namespace _2023._08_Uni_Scheduler.App
             ConfigureDataGridViewEvents();
             ConfigureTextBoxEvent();
         }
-
+        private void frmSchedule_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.F5)
+            {
+                frmSchedule_Load(sender, new EventArgs());
+            }
+        }
         /** Configure DataGridView **/
         private void ConfigureDataGridViewAttributes()
         {
@@ -91,29 +99,36 @@ namespace _2023._08_Uni_Scheduler.App
         }
         private void addConnectionsToDataGridView(string description, DataGridView _dgv)
         {
-            description = description.ToUpper();
-            var select = from sched in Schedules.ToList()
-                         where sched.id == description || sched.description.ToUpper().Contains(description) || sched.observation.ToUpper().Contains(description)
-                         select sched;
-            _dgv.Invoke((Action)delegate
+            try
             {
-                if (_dgv.Columns.Count == 0)
+                
+                description = description.ToUpper();                                
+                var select = from sched in Schedules.ToList()
+                             where sched.id == description || sched.description.ToUpper().Contains(description) || sched.observation.ToUpper().Contains(description)
+                             select sched;
+                _dgv.Invoke((Action)delegate
                 {
-                    _dgv.Columns.Add("id", "Id");
-                    _dgv.Columns.Add("description", "Report");
-                    _dgv.Columns.Add("observation", "Observation");
-                    _dgv.Columns.Add("DaysOfWeek", "Days Of Week");
-                    _dgv.Columns.Add("DaysOFMonth", "Days Of Month");
-                }
-                _dgv.Rows.Clear();
-                foreach (var sched in select)
-                {
-                    _dgv.Rows.Add(sched.id, sched.description, sched.observation,sched.daysofweek,sched.daysofmonth);
-                }
-                _dgv.toDefault();
-                _dgv.Refresh();
-            });
+                    if (_dgv.Columns.Count == 0)
+                    {
+                        _dgv.Columns.Add("id", "Id");
+                        _dgv.Columns.Add("description", "Report");
+                        _dgv.Columns.Add("observation", "Observation");
+                        _dgv.Columns.Add("DaysOfWeek", "Days Of Week");
+                        _dgv.Columns.Add("DaysOFMonth", "Days Of Month");
+                    }
+                    _dgv.Rows.Clear();
+                    foreach (var sched in select)
+                    {
+                        _dgv.Rows.Add(sched.id, sched.description, sched.observation, sched.daysofweek, sched.daysofmonth);                        
+                    }
+                    _dgv.toDefault();
+                    _dgv.Refresh();                    
+                });
+            }
+            catch
+            {
 
+            }
 
         }
         private void dgvData_DoubleClick(object sender, EventArgs e)
@@ -143,7 +158,7 @@ namespace _2023._08_Uni_Scheduler.App
             frmSchedule_Information frmSchedule_Information = new frmSchedule_Information();
             frmSchedule_Information.insert = false;
             frmSchedule_Information.Schedule = Schedules.Where(quer => quer.id == dgvData.CurrentRow.Cells[0].Value.ToString()).FirstOrDefault();
-            frmSchedule_Information.ShowDialog();
+            frmSchedule_Information.Show();
             Schedules = await getSchedulesAsync();
             txtSearch.Text = string.Empty;
             addConnectionsToDataGridView(txtSearch.Text, dgvData);
@@ -152,11 +167,12 @@ namespace _2023._08_Uni_Scheduler.App
         {
             frmSchedule_Information frmSchedule_Information = new frmSchedule_Information();
             frmSchedule_Information.insert = true;
-            frmSchedule_Information.ShowDialog();
-            dgvData.Refresh();
+            frmSchedule_Information.Show();            
             txtSearch.Text = string.Empty;
             Schedules = await getSchedulesAsync();
-            addConnectionsToDataGridView(txtSearch.Text, dgvData);
+            
+            addConnectionsToDataGridView(txtSearch.Text, dgvData);            
+            dgvData.Rows[dgvData.Rows.Count-1].Selected = true;  
         }
 
         /** Configure TextBox **/
