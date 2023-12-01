@@ -1,7 +1,42 @@
-*bin*
-*Debug*
-*obj*
+# Arquivos de build e binários
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# Arquivos de configuração do Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Arquivos de build do MSBuild
+_ReSharper*/
+[Tt]est[Rr]esult*/
+
+# Ferramentas NuGet
+packages/
+*.psess
+
+# Arquivos gerados durante a execução
+*.cache
+*.ilk
+*.log
 *.exe
-.vs
-Releases
-*.nupkg
+*.pdb
+*.dll
+
+# Outros arquivos e pastas
+*.swp
+*~
+*.dbmdl
+*.jfm
+ipch/
+*.tlog
+*.idb
+*.svclog
+*.scc
+
+# Ferramentas de análise de código estático
+StyleCopReport.xml
