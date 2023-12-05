@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33815.320
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2023.08_Uni_Scheduler", "2023.08_Uni_Scheduler\2023.08_Uni_Scheduler.csproj", "{AD508C18-0BCD-4007-93E0-37947A5926EC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AtenasDataBot", "2023.08_Uni_Scheduler\AtenasDataBot.csproj", "{AD508C18-0BCD-4007-93E0-37947A5926EC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

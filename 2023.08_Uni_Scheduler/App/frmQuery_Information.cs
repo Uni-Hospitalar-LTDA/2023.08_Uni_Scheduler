@@ -344,9 +344,7 @@ namespace _2023._08_Uni_Scheduler.App
             lsbConnections.Items.Remove(lsbConnections.SelectedItem);
         }
         private async void btnExecute_Click(object sender, EventArgs e)
-        {
-            this.Cursor = Cursors.WaitCursor;
-
+        {         
             try
             {                
                 pcbCharge.Visible = true;
@@ -355,6 +353,7 @@ namespace _2023._08_Uni_Scheduler.App
                 {
                     if (!string.IsNullOrEmpty(rtxtQuery.Text))
                     {
+                        this.Cursor = Cursors.WaitCursor;
                         var conn = (await SchedulerApp_Connection.getAllToListAsync())
                             .Where(c => Convert.ToInt32(c.id) == Convert.ToInt32(txtActive.Text.Split('-')[0]))
                             .FirstOrDefault();

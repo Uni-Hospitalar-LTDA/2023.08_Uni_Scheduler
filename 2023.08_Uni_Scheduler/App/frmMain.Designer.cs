@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.lblApplicationName = new System.Windows.Forms.Label();
             this.btnExit = new System.Windows.Forms.Button();
             this.lsbLogs = new System.Windows.Forms.ListBox();
@@ -72,6 +73,8 @@
             // 
             // lsbLogs
             // 
+            this.lsbLogs.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lsbLogs.FormattingEnabled = true;
             this.lsbLogs.Location = new System.Drawing.Point(12, 216);
             this.lsbLogs.Name = "lsbLogs";
@@ -226,6 +229,8 @@
             // 
             // lsbSchedule
             // 
+            this.lsbSchedule.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lsbSchedule.FormattingEnabled = true;
             this.lsbSchedule.Location = new System.Drawing.Point(763, 12);
             this.lsbSchedule.Name = "lsbSchedule";
@@ -258,6 +263,7 @@
             this.Controls.Add(this.lsbLogs);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.lblApplicationName);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmMain";
             this.Text = "Atenas Data Bot";
             this.ResumeLayout(false);

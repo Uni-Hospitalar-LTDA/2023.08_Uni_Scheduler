@@ -2,7 +2,8 @@
 using _2023._08_Uni_Scheduler.Configuration;
 using _2023._08_Uni_Scheduler.Domain.Entities;
 using _2023._08_Uni_Scheduler.Domain.Entities.Email;
-using Microsoft.Office;
+using DocumentFormat.OpenXml.CustomProperties;
+using Microsoft.Office.Interop.Access;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,6 +20,8 @@ using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using Application = System.Windows.Forms.Application;
+using ListBox = System.Windows.Forms.ListBox;
 
 namespace _2023._08_Uni_Scheduler
 {
@@ -508,6 +511,8 @@ Este robô envia relatórios e alertas de forma autônoma. Por favor, não nos r
             ConfigureListBoxEvents();
 
             
+
+
         }
 
         /** ListBox **/
