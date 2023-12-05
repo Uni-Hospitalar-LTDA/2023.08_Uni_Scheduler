@@ -30,6 +30,7 @@ using _2023._08_Uni_Scheduler.Domain.Entities;
 using ClosedXML.Excel;
 using System.Data;
 
+
 namespace _2023._08_Uni_Scheduler.Configuration
 {
     public class Exportation

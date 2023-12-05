@@ -2,7 +2,7 @@
 using _2023._08_Uni_Scheduler.Configuration;
 using _2023._08_Uni_Scheduler.Domain.Entities;
 using _2023._08_Uni_Scheduler.Domain.Entities.Email;
-using Microsoft.Office.Core;
+using Microsoft.Office;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
