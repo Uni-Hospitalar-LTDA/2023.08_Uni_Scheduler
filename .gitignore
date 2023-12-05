@@ -16,7 +16,6 @@ _ReSharper*/
 [Tt]est[Rr]esult*/
 
 # Ferramentas NuGet
-packages/
 *.psess
 
 # Arquivos gerados durante a execução
