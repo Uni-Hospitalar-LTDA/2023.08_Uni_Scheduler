@@ -21,7 +21,7 @@ namespace _2023._08_Uni_Scheduler.Configuration
             string conn = null;            
 
             SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder                
-            ("Server=10.5.1.11;Database=UHCDB");
+            ("Server=10.5.1.42;Database=UHCDB");
             builder.UserID = "sa";
             builder.Password = "vls021130";
             conn = builder.ConnectionString;            
