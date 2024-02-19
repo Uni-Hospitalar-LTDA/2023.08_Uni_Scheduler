@@ -1,0 +1,27 @@
+﻿[05/09/23 10:54:00] info: Program: Starting Squirrel Updater: --releasify AtenasDataBot.1.0.0.1.nupkg
+[05/09/23 10:54:00] info: Program: Bootstrapper EXE found at:C:\Users\wendson.mayk\Desktop\Projeto\2023.08_Uni_Scheduler\packages\squirrel.windows.2.0.1\tools\Setup.exe
+[05/09/23 10:54:00] fatal: Finished with unhandled exception: System.IO.FileNotFoundException: Não foi possível localizar o arquivo 'AtenasDataBot.1.0.0.1.nupkg'.
+Nome do arquivo: 'AtenasDataBot.1.0.0.1.nupkg'
+   em System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   em System.IO.File.InternalCopy(String sourceFileName, String destFileName, Boolean overwrite, Boolean checkHost)
+   em Squirrel.Update.Program.Releasify(String package, String targetDir, String packagesDir, String bootstrapperExe, String backgroundGif, String signingOpts, String baseUrl, String setupIcon, Boolean generateMsi, Boolean packageAs64Bit, String frameworkVersion, Boolean generateDeltas)
+   em Squirrel.Update.Program.executeCommandLine(String[] args)
+   em Squirrel.Update.Program.main(String[] args)
+[05/09/23 10:57:15] info: Program: Starting Squirrel Updater: --releasify AtenasDataBot.1.0.0.nupkg
+[05/09/23 10:57:15] info: Program: Bootstrapper EXE found at:C:\Users\wendson.mayk\Desktop\Projeto\2023.08_Uni_Scheduler\packages\squirrel.windows.2.0.1\tools\Setup.exe
+[05/09/23 10:57:15] fatal: Finished with unhandled exception: System.IO.FileNotFoundException: Não foi possível localizar o arquivo 'AtenasDataBot.1.0.0.nupkg'.
+Nome do arquivo: 'AtenasDataBot.1.0.0.nupkg'
+   em System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   em System.IO.File.InternalCopy(String sourceFileName, String destFileName, Boolean overwrite, Boolean checkHost)
+   em Squirrel.Update.Program.Releasify(String package, String targetDir, String packagesDir, String bootstrapperExe, String backgroundGif, String signingOpts, String baseUrl, String setupIcon, Boolean generateMsi, Boolean packageAs64Bit, String frameworkVersion, Boolean generateDeltas)
+   em Squirrel.Update.Program.executeCommandLine(String[] args)
+   em Squirrel.Update.Program.main(String[] args)
+[05/09/23 10:58:15] info: Program: Starting Squirrel Updater: --releasify AtenasDataBot.1.0.0.nupkg
+[05/09/23 10:58:15] info: Program: Bootstrapper EXE found at:C:\Users\wendson.mayk\Desktop\Projeto\2023.08_Uni_Scheduler\packages\squirrel.windows.2.0.1\tools\Setup.exe
+[05/09/23 10:58:15] info: Program: Creating release package: C:\Users\wendson.mayk\Desktop\Projeto\2023.08_Uni_Scheduler\Releases\AtenasDataBot.1.0.0.nupkg
+[05/09/23 10:58:15] info: ReleasePackage: Creating release package: C:\Users\wendson.mayk\Desktop\Projeto\2023.08_Uni_Scheduler\Releases\AtenasDataBot.1.0.0.nupkg => C:\Users\wendson.mayk\Desktop\Projeto\2023.08_Uni_Scheduler\Releases\AtenasDataBot-1.0.0-full.nupkg
+[05/09/23 10:58:16] info: ReleasePackage: Extracting dependent packages: []
+[05/09/23 10:58:16] info: ReleasePackage: Removing unnecessary data
+[05/09/23 10:58:16] info: ReleasePackage: No release notes found in C:\Users\wendson.mayk\AppData\Local\SquirrelTemp\tempa\AtenasDataBot.nuspec
+[05/09/23 10:58:17] info: Program: Building embedded zip file for Setup.exe
+[05/09/23 10:58:29] info: Program: Finished Squirrel Updater

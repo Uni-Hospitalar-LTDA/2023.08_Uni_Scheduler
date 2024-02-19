@@ -57,7 +57,7 @@ namespace _2023._08_Uni_Scheduler.App
                     bool withSheets = false;
 
                     /** Making reports **/
-                    int x = 1;
+                    //int x = 1;
                     var query = await DateExtractor.GetReportTypeCondition(email.body);
                     if (query == null)
                     {

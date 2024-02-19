@@ -2,7 +2,13 @@
 using _2023._08_Uni_Scheduler.Configuration;
 using _2023._08_Uni_Scheduler.Domain.Entities;
 using _2023._08_Uni_Scheduler.Domain.Entities.Email;
+using DocumentFormat.OpenXml.Drawing;
+using DocumentFormat.OpenXml.Presentation;
+using DocumentFormat.OpenXml.Spreadsheet;
+using Guna.UI2.WinForms;
+using iText.Kernel.Colors;
 using Microsoft.Office.Core;
+using Org.BouncyCastle.Asn1;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,6 +25,7 @@ using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using Color = System.Drawing.Color;
 
 namespace _2023._08_Uni_Scheduler
 {
@@ -34,10 +41,11 @@ namespace _2023._08_Uni_Scheduler
 
             //Control properties
             ConfigureLabelProperties();
-            ConfigureProgressbarProperties();            
+            ConfigureProgressbarProperties();
             ConfigureTextBoxProperties();
             ConfigureTimerProperties();
-
+            ConfigureButtonProperties();
+            ConfigurePictureBoxProperties();
 
             //Form Events 
             ConfigureFormEvents();
@@ -485,11 +493,26 @@ Este robô envia relatórios e alertas de forma autônoma. Por favor, não nos r
             isProcessing = false;
         }
         /** Form Configuration **/
-        
+        private void ConfigureFormProperties()
+        {
+           
+
+            // Set the form of the system in pixels
+            this.Size = new System.Drawing.Size(1178, 543);
+
+            // Set the style of the border form
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+
+            // This disable the maximaze form
+            this.MaximizeBox = false;
+
+            // This start the form in center screen
+            this.StartPosition = FormStartPosition.CenterScreen;
+        }
         private void ConfigureFormAttributes()
         {
             this.Name = "Atenas Data Bot v2.0.0";
-        }
+        }   
         private void ConfigureFormEvents()
         {
             this.Load += frmMain_Load;
@@ -510,6 +533,10 @@ Este robô envia relatórios e alertas de forma autônoma. Por favor, não nos r
             
         }
 
+        private void ConfigurePictureBoxProperties()
+        {
+            pcbRobot.Image = Properties.Resources.giphy;
+        }
         /** ListBox **/
         private void ConfigureListBoxEvents()
         {
@@ -563,13 +590,147 @@ Este robô envia relatórios e alertas de forma autônoma. Por favor, não nos r
             pcbScheduledMail.Style = ProgressBarStyle.Marquee;
 
             pcbOperation.Visible = false;
+
+            //Colors from Progress Bar EmailAnalysis
+            pcbEmailAnalysis.ProgressColor = Color.Green;
+            pcbEmailAnalysis.ProgressColor2 = Color.SpringGreen;
+            pcbEmailAnalysis.BorderRadius = 3;
+
+            //Colors from Progress Bar ScheduledMail
+            pcbScheduledMail.ProgressColor = Color.Green;
+            pcbScheduledMail.ProgressColor2 = Color.SpringGreen;
+            pcbScheduledMail.BorderRadius = 3;          
+   
         }
         private void ConfigureProgressbarEvents()
         {
 
         }
 
-        /** Button Configuration **/        
+        /** Button Configuration **/
+        private void ConfigureButtonProperties()
+        {
+            //Normal Satate ------------------------------------------------------
+            
+            //Play buttonHoverState
+            btnEmailAnalysis_Play.FillColor = SystemColors.ActiveCaption;
+            btnEmailAnalysis_Play.Cursor = Cursors.Hand;
+            btnEmailAnalysis_Play.Animated = true;
+            
+            //Stop ButtonHoverState  
+            btnEmailAnalysis_Stop.FillColor = SystemColors.ActiveCaption;
+            btnEmailAnalysis_Stop.Cursor = Cursors.Hand;
+            btnEmailAnalysis_Stop.Animated = true;
+
+            //Hover state -----------------------------------------------------
+            
+            //Play buttonHoverState
+            btnEmailAnalysis_Play.HoverState.FillColor = Color.FromArgb(92, 184, 92);
+            btnEmailAnalysis_Play.Cursor = Cursors.Hand;
+            btnEmailAnalysis_Play.Animated = true;
+           
+            
+            //Stop ButtonHoverState
+            btnEmailAnalysis_Stop.HoverState.FillColor = Color.LightCoral;
+            btnEmailAnalysis_Stop.Cursor = Cursors.Hand;
+            btnEmailAnalysis_Stop.Animated = true;
+
+
+            //Hover State ----------------------------------------------------
+
+            // Schedule Play Button
+            btnScheduledMail_Play.HoverState. FillColor = Color.FromArgb(92, 184, 92);
+            btnScheduledMail_Play.Cursor = Cursors.Hand;
+            btnScheduledMail_Play.Animated = true;
+
+            // Schedule Stop Button
+            btnScheduledMail_Stop.HoverState.FillColor = Color.LightCoral;
+            btnScheduledMail_Stop.Cursor = Cursors.Hand;
+            btnScheduledMail_Stop.Animated = true;
+
+            //Normal State --------------------------------------------------
+            
+            // Schedule Play Button
+            btnScheduledMail_Play.FillColor = SystemColors.ActiveCaption;
+            btnScheduledMail_Play.Cursor = Cursors.Hand;
+            btnScheduledMail_Play.Animated = true;
+
+            // Schedule Stop Button
+            btnScheduledMail_Stop.FillColor = SystemColors.ActiveCaption;
+            btnScheduledMail_Stop.Cursor = Cursors.Hand;
+            btnScheduledMail_Stop.Animated = true;
+
+
+            //Main Buttons ---------------------------------------------------
+
+            //Normal state BtnSchedules
+            btnSchedules.FillColor = Color.DarkGray;
+            btnSchedules.FillColor2 = SystemColors.ActiveCaption;
+            btnSchedules.Cursor = Cursors.Hand;
+            btnSchedules.HoverState.ForeColor = Color.Black;
+            //Normal state BtnContacts
+            btnContacts.FillColor = Color.DarkGray;
+            btnContacts.FillColor2 = SystemColors.ActiveCaption;
+            btnContacts.Cursor = Cursors.Hand;
+            btnContacts.HoverState.ForeColor = Color.Black;
+            //Normal state Connections
+            btnConnections.FillColor = Color.DarkGray;
+            btnConnections.FillColor2 = SystemColors.ActiveCaption;
+            btnConnections.Cursor = Cursors.Hand;
+            btnConnections.HoverState.ForeColor = Color.Black;
+            //Normal state BtnReports
+            btnReports.FillColor = Color.DarkGray;
+            btnReports.FillColor2 = SystemColors.ActiveCaption;
+            btnReports.Cursor = Cursors.Hand;
+            btnReports.HoverState.ForeColor = Color.Black;
+            //Normal state BtnQuerys
+            btnQuerys.FillColor = Color.DarkGray;
+            btnQuerys.FillColor2 = SystemColors.ActiveCaption;
+            btnQuerys.Cursor = Cursors.Hand;
+            btnQuerys.HoverState.ForeColor = Color.Black;
+            //Normal state btnGeneretor
+            btnGenerator.FillColor = Color.DarkGray;
+            btnGenerator.FillColor2 = SystemColors.ActiveCaption;
+            btnGenerator.Cursor = Cursors.Hand;
+            btnGenerator.HoverState.ForeColor = Color.Black;
+
+
+            //Hover State BtnSchedules ---------------------------------------
+            btnSchedules.HoverState.FillColor = Color.FromArgb(94, 148, 255);
+            btnSchedules.HoverState.FillColor2 = Color.FromArgb(255, 77, 165);
+            //Hover State Contacts
+            btnContacts.HoverState.FillColor = Color.FromArgb(94, 148, 255);
+            btnContacts.HoverState.FillColor2 = Color.FromArgb(255, 77, 165);
+            //Hover State Connections
+            btnConnections.HoverState.FillColor = Color.FromArgb(94, 148, 255);
+            btnConnections.HoverState.FillColor2 = Color.FromArgb(255, 77, 165);
+            //Hover State Reports
+            btnReports.HoverState.FillColor = Color.FromArgb(94, 148, 255);
+            btnReports.HoverState.FillColor2 = Color.FromArgb(255, 77, 165);
+            //Hover State Querys
+            btnQuerys.HoverState.FillColor = Color.FromArgb(94, 148, 255);
+            btnQuerys.HoverState.FillColor2 = Color.FromArgb(255, 77, 165);
+            //Hover state Generator
+            btnGenerator.HoverState.FillColor = Color.FromArgb(94, 148, 255);
+            btnGenerator.HoverState.FillColor2 = Color.FromArgb(255, 77, 165);
+
+            //Export logs and Exit ---------------------------------------------
+            btnLogs.FillColor = Color.DarkGray;
+            btnLogs.FillColor2 = SystemColors.ActiveCaption;
+            btnLogs.Cursor = Cursors.Hand;
+
+            btnExit.FillColor = SystemColors.ActiveCaption;
+            btnExit.FillColor2 = Color.DarkGray;
+            btnExit.Cursor = Cursors.Hand;
+
+            //Hover State exit -------------------------------------------------
+            btnExit.FillColor = SystemColors.ActiveCaption;
+            btnExit.HoverState.FillColor2 = Color.Firebrick;
+            btnExit.Cursor = Cursors.Hand;
+
+            
+
+        }
         private void ConfigureButtonEvents()
         {
             btnEmailAnalysis_Play.Click += btnEmailAnalysis_Play_Click;
@@ -614,13 +775,14 @@ Este robô envia relatórios e alertas de forma autônoma. Por favor, não nos r
         {            
                 pcbEmailAnalysis.Visible = true;
                 timerReportByMail.Start();
-            
+                btnEmailAnalysis_Stop.Enabled = true;
                 btnEmailAnalysis_Play.Enabled = false;            
         }
         private void btnScheduledMail_Play_Click(object sender, EventArgs e)
         {
             pcbScheduledMail.Visible = true;
             btnScheduledMail_Play.Enabled = false;
+            btnScheduledMail_Stop.Enabled = true;
             timerVerifySchedule.Start();
             timerSend.Start();
         }
@@ -643,7 +805,7 @@ Este robô envia relatórios e alertas de forma autônoma. Por favor, não nos r
         private void btnExit_Click(object sender, EventArgs e)
         {
             if (DialogResult.Yes == MessageBox.Show("Deseja encerrar?", "Sair da aplicação", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
-                Application.Exit();
+                Application.Exit();            
         }
         private void btnLogs_Click(object sender, EventArgs e)
         {
@@ -665,7 +827,12 @@ Este robô envia relatórios e alertas de forma autônoma. Por favor, não nos r
         {
 
         }
+  
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
 
-       
+        }
+
+
     }
 }
