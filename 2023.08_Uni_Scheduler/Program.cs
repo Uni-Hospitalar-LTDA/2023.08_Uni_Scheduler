@@ -2,6 +2,7 @@
 using DocumentFormat.OpenXml.Bibliography;
 using Squirrel;
 using System;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace _2023._08_Uni_Scheduler

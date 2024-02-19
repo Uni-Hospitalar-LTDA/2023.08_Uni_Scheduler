@@ -25,3 +25,142 @@ Nome do arquivo: 'AtenasDataBot.1.0.0.nupkg'
 [05/09/23 10:58:16] info: ReleasePackage: No release notes found in C:\Users\wendson.mayk\AppData\Local\SquirrelTemp\tempa\AtenasDataBot.nuspec
 [05/09/23 10:58:17] info: Program: Building embedded zip file for Setup.exe
 [05/09/23 10:58:29] info: Program: Finished Squirrel Updater
+[19/02/24 11:39:47] info: Program: Starting Squirrel Updater: --releasify AtenasDataBot.1.0.2.nupkg
+[19/02/24 11:39:47] info: Program: Bootstrapper EXE found at:C:\Users\rafael.silva\Documents\003-Uni-Hospitalar\2023.08_Uni_Scheduler\packages\squirrel.windows.2.0.1\tools\Setup.exe
+[19/02/24 11:39:47] info: Program: Creating release package: C:\Users\rafael.silva\Documents\003-Uni-Hospitalar\2023.08_Uni_Scheduler\Releases\AtenasDataBot.1.0.2.nupkg
+[19/02/24 11:39:47] info: ReleasePackage: Creating release package: C:\Users\rafael.silva\Documents\003-Uni-Hospitalar\2023.08_Uni_Scheduler\Releases\AtenasDataBot.1.0.2.nupkg => C:\Users\rafael.silva\Documents\003-Uni-Hospitalar\2023.08_Uni_Scheduler\Releases\AtenasDataBot-1.0.2-full.nupkg
+[19/02/24 11:39:48] info: ReleasePackage: Extracting dependent packages: []
+[19/02/24 11:39:48] info: ReleasePackage: Removing unnecessary data
+[19/02/24 11:39:48] info: ReleasePackage: No release notes found in C:\Users\rafael.silva\AppData\Local\SquirrelTemp\tempn\AtenasDataBot.nuspec
+[19/02/24 11:39:49] info: DeltaPackageBuilder: Extracting .\Releases\AtenasDataBot-1.0.1-full.nupkg and C:\Users\rafael.silva\Documents\003-Uni-Hospitalar\2023.08_Uni_Scheduler\Releases\AtenasDataBot-1.0.2-full.nupkg into C:\Users\rafael.silva\AppData\Local\SquirrelTemp\tempo
+[19/02/24 11:39:49] info: DeltaPackageBuilder: \lib\net472\BouncyCastle.Crypto.dll hasn't changed, writing dummy file
+[19/02/24 11:39:49] info: DeltaPackageBuilder: \lib\net472\BouncyCastle.Cryptography.dll hasn't changed, writing dummy file
+[19/02/24 11:39:49] info: DeltaPackageBuilder: \lib\net472\ClosedXML.dll hasn't changed, writing dummy file
+[19/02/24 11:39:49] info: DeltaPackageBuilder: \lib\net472\Criptografia.dll hasn't changed, writing dummy file
+[19/02/24 11:39:49] info: DeltaPackageBuilder: \lib\net472\DeltaCompressionDotNet.dll hasn't changed, writing dummy file
+[19/02/24 11:39:49] info: DeltaPackageBuilder: \lib\net472\DeltaCompressionDotNet.MsDelta.dll hasn't changed, writing dummy file
+[19/02/24 11:39:49] info: DeltaPackageBuilder: \lib\net472\DeltaCompressionDotNet.PatchApi.dll hasn't changed, writing dummy file
+[19/02/24 11:39:49] info: DeltaPackageBuilder: \lib\net472\DocumentFormat.OpenXml.dll hasn't changed, writing dummy file
+[19/02/24 11:39:49] info: DeltaPackageBuilder: \lib\net472\ExcelNumberFormat.dll hasn't changed, writing dummy file
+[19/02/24 11:39:49] info: DeltaPackageBuilder: \lib\net472\Guna.UI2.dll not found in base package, marking as new
+[19/02/24 11:39:49] info: DeltaPackageBuilder: \lib\net472\Irony.dll hasn't changed, writing dummy file
+[19/02/24 11:39:49] info: DeltaPackageBuilder: \lib\net472\itext.barcodes.dll hasn't changed, writing dummy file
+[19/02/24 11:39:49] info: DeltaPackageBuilder: \lib\net472\itext.bouncy-castle-connector.dll hasn't changed, writing dummy file
+[19/02/24 11:39:49] info: DeltaPackageBuilder: \lib\net472\itext.commons.dll hasn't changed, writing dummy file
+[19/02/24 11:39:49] info: DeltaPackageBuilder: \lib\net472\itext.forms.dll hasn't changed, writing dummy file
+[19/02/24 11:39:49] info: DeltaPackageBuilder: \lib\net472\itext.io.dll hasn't changed, writing dummy file
+[19/02/24 11:39:49] info: DeltaPackageBuilder: \lib\net472\itext.kernel.dll hasn't changed, writing dummy file
+[19/02/24 11:39:49] info: DeltaPackageBuilder: \lib\net472\itext.layout.dll hasn't changed, writing dummy file
+[19/02/24 11:39:49] info: DeltaPackageBuilder: \lib\net472\itext.pdfa.dll hasn't changed, writing dummy file
+[19/02/24 11:39:49] info: DeltaPackageBuilder: \lib\net472\itext.sign.dll hasn't changed, writing dummy file
+[19/02/24 11:39:49] info: DeltaPackageBuilder: \lib\net472\itext.styledxmlparser.dll hasn't changed, writing dummy file
+[19/02/24 11:39:49] info: DeltaPackageBuilder: \lib\net472\itext.svg.dll hasn't changed, writing dummy file
+[19/02/24 11:39:49] info: DeltaPackageBuilder: \lib\net472\MailKit.dll hasn't changed, writing dummy file
+[19/02/24 11:39:49] info: DeltaPackageBuilder: \lib\net472\MailKit.dll.config hasn't changed, writing dummy file
+[19/02/24 11:39:49] info: DeltaPackageBuilder: \lib\net472\Microsoft.Bcl.AsyncInterfaces.dll hasn't changed, writing dummy file
+[19/02/24 11:39:49] info: DeltaPackageBuilder: \lib\net472\Microsoft.Extensions.DependencyInjection.Abstractions.dll hasn't changed, writing dummy file
+[19/02/24 11:39:49] info: DeltaPackageBuilder: \lib\net472\Microsoft.Extensions.DependencyInjection.dll hasn't changed, writing dummy file
+[19/02/24 11:39:49] info: DeltaPackageBuilder: \lib\net472\Microsoft.Extensions.Logging.Abstractions.dll hasn't changed, writing dummy file
+[19/02/24 11:39:49] info: DeltaPackageBuilder: \lib\net472\Microsoft.Extensions.Logging.dll hasn't changed, writing dummy file
+[19/02/24 11:39:49] info: DeltaPackageBuilder: \lib\net472\Microsoft.Extensions.Options.dll hasn't changed, writing dummy file
+[19/02/24 11:39:49] info: DeltaPackageBuilder: \lib\net472\Microsoft.Extensions.Primitives.dll hasn't changed, writing dummy file
+[19/02/24 11:39:49] info: DeltaPackageBuilder: \lib\net472\MimeKit.dll hasn't changed, writing dummy file
+[19/02/24 11:39:49] info: DeltaPackageBuilder: \lib\net472\MimeKit.dll.config hasn't changed, writing dummy file
+[19/02/24 11:39:49] info: DeltaPackageBuilder: \lib\net472\Mono.Cecil.dll hasn't changed, writing dummy file
+[19/02/24 11:39:49] info: DeltaPackageBuilder: \lib\net472\Mono.Cecil.Mdb.dll hasn't changed, writing dummy file
+[19/02/24 11:39:49] info: DeltaPackageBuilder: \lib\net472\Mono.Cecil.Pdb.dll hasn't changed, writing dummy file
+[19/02/24 11:39:49] info: DeltaPackageBuilder: \lib\net472\Mono.Cecil.Rocks.dll hasn't changed, writing dummy file
+[19/02/24 11:39:49] info: DeltaPackageBuilder: \lib\net472\Newtonsoft.Json.dll hasn't changed, writing dummy file
+[19/02/24 11:39:49] info: DeltaPackageBuilder: \lib\net472\NuGet.Squirrel.dll hasn't changed, writing dummy file
+[19/02/24 11:39:49] info: DeltaPackageBuilder: \lib\net472\SharpCompress.dll hasn't changed, writing dummy file
+[19/02/24 11:39:49] info: DeltaPackageBuilder: \lib\net472\SixLabors.Fonts.dll hasn't changed, writing dummy file
+[19/02/24 11:39:49] info: DeltaPackageBuilder: \lib\net472\Squirrel.dll hasn't changed, writing dummy file
+[19/02/24 11:39:49] info: DeltaPackageBuilder: \lib\net472\System.Buffers.dll hasn't changed, writing dummy file
+[19/02/24 11:39:49] info: DeltaPackageBuilder: \lib\net472\System.Diagnostics.DiagnosticSource.dll hasn't changed, writing dummy file
+[19/02/24 11:39:49] info: DeltaPackageBuilder: \lib\net472\System.Formats.Asn1.dll hasn't changed, writing dummy file
+[19/02/24 11:39:49] info: DeltaPackageBuilder: \lib\net472\System.IO.Packaging.dll hasn't changed, writing dummy file
+[19/02/24 11:39:49] info: DeltaPackageBuilder: \lib\net472\System.Memory.dll hasn't changed, writing dummy file
+[19/02/24 11:39:49] info: DeltaPackageBuilder: \lib\net472\System.Numerics.Vectors.dll hasn't changed, writing dummy file
+[19/02/24 11:39:49] info: DeltaPackageBuilder: \lib\net472\System.Runtime.CompilerServices.Unsafe.dll hasn't changed, writing dummy file
+[19/02/24 11:39:49] info: DeltaPackageBuilder: \lib\net472\System.Threading.Tasks.Extensions.dll hasn't changed, writing dummy file
+[19/02/24 11:39:49] info: DeltaPackageBuilder: \lib\net472\System.ValueTuple.dll hasn't changed, writing dummy file
+[19/02/24 11:39:49] info: DeltaPackageBuilder: \lib\net472\XLParser.dll hasn't changed, writing dummy file
+[19/02/24 11:39:49] info: DeltaPackageBuilder: \lib\net472\_2023._08_Uni_Scheduler.exe not found in base package, marking as new
+[19/02/24 11:39:49] info: DeltaPackageBuilder: \lib\net472\_2023._08_Uni_Scheduler.exe.config not found in base package, marking as new
+[19/02/24 11:39:49] info: DeltaPackageBuilder: \lib\net472\_2023._08_Uni_Scheduler_ExecutionStub.exe not found in base package, marking as new
+[19/02/24 11:39:50] info: Program: Building embedded zip file for Setup.exe
+[19/02/24 11:39:50] error: Program: Failed to update Setup.exe with new Zip file: System.Exception: Failed to write Zip to Setup.exe!
+
+Setup: C:\Users\rafael.silva\Documents\003-Uni-Hospitalar\2023.08_Uni_Scheduler\Releases\Setup.exe, Zip: C:\Users\rafael.silva\AppData\Local\Temp\tmpFF91.tmp
+Starting to read in Zip file!
+Updating Resource!
+Finished!
+Failed to update resource
+Usage: WriteZipToSetup [Setup.exe template] [Zip File]
+   em Squirrel.Update.Program.Releasify(String package, String targetDir, String packagesDir, String bootstrapperExe, String backgroundGif, String signingOpts, String baseUrl, String setupIcon, Boolean generateMsi, Boolean packageAs64Bit, String frameworkVersion, Boolean generateDeltas)
+[19/02/24 11:39:51] info: Program: Finished Squirrel Updater
+[19/02/24 11:50:22] info: Program: Starting Squirrel Updater: --releasify AtenasDataBot.1.0.3.nupkg
+[19/02/24 11:50:22] info: Program: Bootstrapper EXE found at:C:\Users\rafael.silva\Documents\003-Uni-Hospitalar\2023.08_Uni_Scheduler\packages\squirrel.windows.2.0.1\tools\Setup.exe
+[19/02/24 11:50:22] info: Program: Creating release package: C:\Users\rafael.silva\Documents\003-Uni-Hospitalar\2023.08_Uni_Scheduler\Releases\AtenasDataBot.1.0.3.nupkg
+[19/02/24 11:50:22] info: ReleasePackage: Creating release package: C:\Users\rafael.silva\Documents\003-Uni-Hospitalar\2023.08_Uni_Scheduler\Releases\AtenasDataBot.1.0.3.nupkg => C:\Users\rafael.silva\Documents\003-Uni-Hospitalar\2023.08_Uni_Scheduler\Releases\AtenasDataBot-1.0.3-full.nupkg
+[19/02/24 11:50:23] info: ReleasePackage: Extracting dependent packages: []
+[19/02/24 11:50:23] info: ReleasePackage: Removing unnecessary data
+[19/02/24 11:50:23] info: ReleasePackage: No release notes found in C:\Users\rafael.silva\AppData\Local\SquirrelTemp\tempn\AtenasDataBot.nuspec
+[19/02/24 11:50:23] info: DeltaPackageBuilder: Extracting .\Releases\AtenasDataBot-1.0.2-full.nupkg and C:\Users\rafael.silva\Documents\003-Uni-Hospitalar\2023.08_Uni_Scheduler\Releases\AtenasDataBot-1.0.3-full.nupkg into C:\Users\rafael.silva\AppData\Local\SquirrelTemp\tempo
+[19/02/24 11:50:24] info: DeltaPackageBuilder: \lib\net472\BouncyCastle.Crypto.dll hasn't changed, writing dummy file
+[19/02/24 11:50:24] info: DeltaPackageBuilder: \lib\net472\BouncyCastle.Cryptography.dll hasn't changed, writing dummy file
+[19/02/24 11:50:24] info: DeltaPackageBuilder: \lib\net472\ClosedXML.dll hasn't changed, writing dummy file
+[19/02/24 11:50:24] info: DeltaPackageBuilder: \lib\net472\Criptografia.dll hasn't changed, writing dummy file
+[19/02/24 11:50:24] info: DeltaPackageBuilder: \lib\net472\DeltaCompressionDotNet.dll hasn't changed, writing dummy file
+[19/02/24 11:50:24] info: DeltaPackageBuilder: \lib\net472\DeltaCompressionDotNet.MsDelta.dll hasn't changed, writing dummy file
+[19/02/24 11:50:24] info: DeltaPackageBuilder: \lib\net472\DeltaCompressionDotNet.PatchApi.dll hasn't changed, writing dummy file
+[19/02/24 11:50:24] info: DeltaPackageBuilder: \lib\net472\DocumentFormat.OpenXml.dll hasn't changed, writing dummy file
+[19/02/24 11:50:24] info: DeltaPackageBuilder: \lib\net472\ExcelNumberFormat.dll hasn't changed, writing dummy file
+[19/02/24 11:50:24] info: DeltaPackageBuilder: \lib\net472\Guna.UI2.dll hasn't changed, writing dummy file
+[19/02/24 11:50:24] info: DeltaPackageBuilder: \lib\net472\Irony.dll hasn't changed, writing dummy file
+[19/02/24 11:50:24] info: DeltaPackageBuilder: \lib\net472\itext.barcodes.dll hasn't changed, writing dummy file
+[19/02/24 11:50:24] info: DeltaPackageBuilder: \lib\net472\itext.bouncy-castle-connector.dll hasn't changed, writing dummy file
+[19/02/24 11:50:24] info: DeltaPackageBuilder: \lib\net472\itext.commons.dll hasn't changed, writing dummy file
+[19/02/24 11:50:24] info: DeltaPackageBuilder: \lib\net472\itext.forms.dll hasn't changed, writing dummy file
+[19/02/24 11:50:24] info: DeltaPackageBuilder: \lib\net472\itext.io.dll hasn't changed, writing dummy file
+[19/02/24 11:50:24] info: DeltaPackageBuilder: \lib\net472\itext.kernel.dll hasn't changed, writing dummy file
+[19/02/24 11:50:24] info: DeltaPackageBuilder: \lib\net472\itext.layout.dll hasn't changed, writing dummy file
+[19/02/24 11:50:24] info: DeltaPackageBuilder: \lib\net472\itext.pdfa.dll hasn't changed, writing dummy file
+[19/02/24 11:50:24] info: DeltaPackageBuilder: \lib\net472\itext.sign.dll hasn't changed, writing dummy file
+[19/02/24 11:50:24] info: DeltaPackageBuilder: \lib\net472\itext.styledxmlparser.dll hasn't changed, writing dummy file
+[19/02/24 11:50:24] info: DeltaPackageBuilder: \lib\net472\itext.svg.dll hasn't changed, writing dummy file
+[19/02/24 11:50:24] info: DeltaPackageBuilder: \lib\net472\MailKit.dll hasn't changed, writing dummy file
+[19/02/24 11:50:24] info: DeltaPackageBuilder: \lib\net472\MailKit.dll.config hasn't changed, writing dummy file
+[19/02/24 11:50:24] info: DeltaPackageBuilder: \lib\net472\Microsoft.Bcl.AsyncInterfaces.dll hasn't changed, writing dummy file
+[19/02/24 11:50:24] info: DeltaPackageBuilder: \lib\net472\Microsoft.Extensions.DependencyInjection.Abstractions.dll hasn't changed, writing dummy file
+[19/02/24 11:50:24] info: DeltaPackageBuilder: \lib\net472\Microsoft.Extensions.DependencyInjection.dll hasn't changed, writing dummy file
+[19/02/24 11:50:24] info: DeltaPackageBuilder: \lib\net472\Microsoft.Extensions.Logging.Abstractions.dll hasn't changed, writing dummy file
+[19/02/24 11:50:24] info: DeltaPackageBuilder: \lib\net472\Microsoft.Extensions.Logging.dll hasn't changed, writing dummy file
+[19/02/24 11:50:24] info: DeltaPackageBuilder: \lib\net472\Microsoft.Extensions.Options.dll hasn't changed, writing dummy file
+[19/02/24 11:50:24] info: DeltaPackageBuilder: \lib\net472\Microsoft.Extensions.Primitives.dll hasn't changed, writing dummy file
+[19/02/24 11:50:24] info: DeltaPackageBuilder: \lib\net472\MimeKit.dll hasn't changed, writing dummy file
+[19/02/24 11:50:24] info: DeltaPackageBuilder: \lib\net472\MimeKit.dll.config hasn't changed, writing dummy file
+[19/02/24 11:50:24] info: DeltaPackageBuilder: \lib\net472\Mono.Cecil.dll hasn't changed, writing dummy file
+[19/02/24 11:50:24] info: DeltaPackageBuilder: \lib\net472\Mono.Cecil.Mdb.dll hasn't changed, writing dummy file
+[19/02/24 11:50:24] info: DeltaPackageBuilder: \lib\net472\Mono.Cecil.Pdb.dll hasn't changed, writing dummy file
+[19/02/24 11:50:24] info: DeltaPackageBuilder: \lib\net472\Mono.Cecil.Rocks.dll hasn't changed, writing dummy file
+[19/02/24 11:50:24] info: DeltaPackageBuilder: \lib\net472\Newtonsoft.Json.dll hasn't changed, writing dummy file
+[19/02/24 11:50:24] info: DeltaPackageBuilder: \lib\net472\NuGet.Squirrel.dll hasn't changed, writing dummy file
+[19/02/24 11:50:24] info: DeltaPackageBuilder: \lib\net472\SharpCompress.dll hasn't changed, writing dummy file
+[19/02/24 11:50:24] info: DeltaPackageBuilder: \lib\net472\SixLabors.Fonts.dll hasn't changed, writing dummy file
+[19/02/24 11:50:24] info: DeltaPackageBuilder: \lib\net472\Squirrel.dll hasn't changed, writing dummy file
+[19/02/24 11:50:24] info: DeltaPackageBuilder: \lib\net472\System.Buffers.dll hasn't changed, writing dummy file
+[19/02/24 11:50:24] info: DeltaPackageBuilder: \lib\net472\System.Diagnostics.DiagnosticSource.dll hasn't changed, writing dummy file
+[19/02/24 11:50:24] info: DeltaPackageBuilder: \lib\net472\System.Formats.Asn1.dll hasn't changed, writing dummy file
+[19/02/24 11:50:24] info: DeltaPackageBuilder: \lib\net472\System.IO.Packaging.dll hasn't changed, writing dummy file
+[19/02/24 11:50:24] info: DeltaPackageBuilder: \lib\net472\System.Memory.dll hasn't changed, writing dummy file
+[19/02/24 11:50:24] info: DeltaPackageBuilder: \lib\net472\System.Numerics.Vectors.dll hasn't changed, writing dummy file
+[19/02/24 11:50:24] info: DeltaPackageBuilder: \lib\net472\System.Runtime.CompilerServices.Unsafe.dll hasn't changed, writing dummy file
+[19/02/24 11:50:24] info: DeltaPackageBuilder: \lib\net472\System.Threading.Tasks.Extensions.dll hasn't changed, writing dummy file
+[19/02/24 11:50:24] info: DeltaPackageBuilder: \lib\net472\System.ValueTuple.dll hasn't changed, writing dummy file
+[19/02/24 11:50:24] info: DeltaPackageBuilder: \lib\net472\XLParser.dll hasn't changed, writing dummy file
+[19/02/24 11:50:24] info: DeltaPackageBuilder: Delta patching C:\Users\rafael.silva\AppData\Local\SquirrelTemp\tempn\lib\net472\_2023._08_Uni_Scheduler.exe => C:\Users\rafael.silva\AppData\Local\SquirrelTemp\tempo\lib\net472\_2023._08_Uni_Scheduler.exe
+[19/02/24 11:50:24] info: DeltaPackageBuilder: \lib\net472\_2023._08_Uni_Scheduler.exe.config hasn't changed, writing dummy file
+[19/02/24 11:50:24] info: DeltaPackageBuilder: Delta patching C:\Users\rafael.silva\AppData\Local\SquirrelTemp\tempn\lib\net472\_2023._08_Uni_Scheduler_ExecutionStub.exe => C:\Users\rafael.silva\AppData\Local\SquirrelTemp\tempo\lib\net472\_2023._08_Uni_Scheduler_ExecutionStub.exe
+[19/02/24 11:50:24] info: Program: Building embedded zip file for Setup.exe
+[19/02/24 11:50:29] info: Program: Finished Squirrel Updater
